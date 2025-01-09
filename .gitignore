@@ -1,0 +1,28 @@
+# Arquivos gerados pelo Rails (backend)
+/backend/log/*
+/backend/tmp/*
+!/backend/log/.keep
+!/backend/tmp/.keep
+/backend/storage/*
+!/backend/storage/.keep
+/backend/tmp/pids/*
+!/backend/tmp/pids/
+!/backend/tmp/pids/.keep
+/backend/config/master.key
+/backend/.env*
+
+# Arquivos gerados pelo Node.js (frontend)
+/frontend/node_modules
+/frontend/build
+/frontend/.env*
+
+# Arquivos temporários do sistema
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Ignorar pastas e arquivos específicos do sistema ou IDE
+.vscode/
+.idea/
+*.bak
