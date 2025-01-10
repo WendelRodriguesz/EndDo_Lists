@@ -1,5 +1,5 @@
 import axios from "axios";
-import { List } from "../types";
+import { List, Item } from "../types";
 
 const api = axios.create({
   baseURL: "http://localhost:3000",
@@ -23,5 +23,15 @@ export const createList = async (
   });
   return response.data;
 };
+
+// Obter os itens da listas
+export const getItemsByListId = async (listId: number): Promise<Item[]> => {
+  try {
+    const response = await axios.get<Item[]>(`/lists/${listId}/items`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar itens da lista:", error);
+    return [];
+  }};
 
 export default api;
