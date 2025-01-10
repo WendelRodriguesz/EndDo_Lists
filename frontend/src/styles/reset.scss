@@ -1,0 +1,84 @@
+/* Reset básico */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Remove estilos padrão de body */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+  background-color: #f9f9f9;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove estilos padrão de listas */
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Links sem sublinhado por padrão */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Tabelas sem bordas */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Remoção de estilos padrão de botões */
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+/* Imagens com largura máxima responsiva */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Inputs e selects resetados */
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+  border: none;
+  outline: none;
+}
+
+/* Ajusta o overflow em body e html */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* Remove a aparência padrão de sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Remover estilos de marcação padrão */
+mark {
+  background-color: transparent;
+  color: inherit;
+}
