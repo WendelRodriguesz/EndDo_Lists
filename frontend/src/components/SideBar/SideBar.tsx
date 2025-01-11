@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import { PiSidebarSimple } from "react-icons/pi";
 import { CiBoxList } from "react-icons/ci";
@@ -7,6 +7,9 @@ import SideBarItem  from "./SideBarItem";
 import { IconType } from "react-icons"; 
 import styles from "./SideBar.module.scss";
 import { NavLink } from "react-router-dom";
+import { List } from "../../types";
+import { useNavigate } from "react-router-dom";
+import { getLists} from "../../api/axios";
 
 
 type MenuItem = {
@@ -20,6 +23,22 @@ const Sidebar: React.FC = () => {
     { name: "Buscar", icon: IoSearchOutline, path: "/search" },
     { name: "Home", icon: CiBoxList, path: "/lists" },
   ];
+  const [lists, setLists] = useState<List[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchLists = async () => {
+      try {
+        const data = await getLists();
+        setLists(data);
+      } catch (error) {
+        console.error("Erro ao carregar listas:", error);
+      }
+    };
+
+    fetchLists();
+  }, []);
+
 
   return (
     <div className={styles["sidebar"]}>
@@ -42,6 +61,18 @@ const Sidebar: React.FC = () => {
           <SideBarItem key={item.name} {...item} />
         ))}
       </div>
+      <div className={styles.divider}></div>
+      <div className={styles["list-section"]}>
+        <h3>Listas</h3>
+        <ul>
+          {lists.map((list) => (
+            <li key={list.id} onClick={() => navigate(`/lists/${list.id}`)}>
+              {list.title}
+            </li>
+          ))}
+        </ul>
+      </div>
+
     </div>
   );
 };
