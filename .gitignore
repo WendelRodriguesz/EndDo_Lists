@@ -26,3 +26,7 @@ Thumbs.db
 .vscode/
 .idea/
 *.bak
+frontend/src/components/ButtonCancel/ButtonCancel.module.scss
+frontend/src/components/ButtonSend/ButtonSend.tsx
+frontend/src/components/ButtonSend/ButtonSend.module.scss
+frontend/src/components/ButtonCancel/ButtonCancel.tsx
