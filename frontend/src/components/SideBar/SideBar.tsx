@@ -9,7 +9,7 @@ import styles from "./SideBar.module.scss";
 import ModalAddList from "../ModalAddList/ModalAddList";
 import { useNavigate } from "react-router-dom";
 import { List } from "../../types";
-import { getLists } from "../../api/axios";
+import { getLists, createList } from "../../api/axios";
 
 type SidebarProps = {
   isVisible: boolean;
@@ -32,8 +32,15 @@ const Sidebar: React.FC<SidebarProps> = ({ isVisible, toggleSidebar }) => {
   const navigate = useNavigate();
 
   const handleAddList = async (title: string, priority: number) => {
-    console.log("Nova Lista:", { title, priority });
-    // Modificar para adicionar a lista no backend
+    try {
+      // Envia a nova lista para o backend
+      const newList = await createList(title, priority);
+      
+      // Atualiza o estado das listas com a nova lista
+      setLists((prevLists) => [...prevLists, newList]);
+    } catch (error) {
+      console.error("Erro ao adicionar lista:", error);
+    }
   };
 
   useEffect(() => {
