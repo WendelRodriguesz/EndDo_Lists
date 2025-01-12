@@ -4,16 +4,16 @@ import { IoSearchCircle } from "react-icons/io5";
 
 interface TopbarProps {
   isSidebarVisible: boolean;
-  onSearch: (query: string) => void;
+  onSearch: (query: string) => void; // Adicione a definição para 'onSearch'
 }
 
 const Topbar: React.FC<TopbarProps> = ({ isSidebarVisible, onSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchQuery(value);
-    onSearch(value); // Envia o valor para a função de busca
+  const handleSearchClick = () => {
+    if (searchQuery.trim() !== "") {
+      onSearch(searchQuery); // Envia o valor para a função de busca
+    }
   };
 
   return (
@@ -27,10 +27,12 @@ const Topbar: React.FC<TopbarProps> = ({ isSidebarVisible, onSearch }) => {
         <input
           type="text"
           value={searchQuery}
-          onChange={handleSearch}
+          onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Buscar listas ou itens..."
         />
-        <a className={styles.IconSearch}><IoSearchCircle size={'40px'}/></a>
+        <a className={styles.IconSearch}>
+        <IoSearchCircle size={"40px"} onClick={handleSearchClick}/>
+        </a>
       </div>
     </div>
   );

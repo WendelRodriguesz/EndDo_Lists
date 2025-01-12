@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import { PiSidebarSimple } from "react-icons/pi";
 import { CiBoxList } from "react-icons/ci";
-import { IoSearchOutline } from "react-icons/io5";
+// import { IoSearchOutline } from "react-icons/io5";
 import SideBarItem from "./SideBarItem";
 import { IconType } from "react-icons"; 
 import styles from "./SideBar.module.scss";
@@ -24,7 +24,7 @@ type MenuItem = {
 
 const Sidebar: React.FC<SidebarProps> = ({ isVisible, toggleSidebar }) => {
   const menuItems: MenuItem[] = [
-    { name: "Buscar", icon: IoSearchOutline, path: "/search" },
+    // { name: "Buscar", icon: IoSearchOutline, path: "/search" },
     { name: "Home", icon: CiBoxList, path: "/lists" },
   ];
   const [lists, setLists] = useState<List[]>([]);

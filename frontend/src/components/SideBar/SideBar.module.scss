@@ -131,6 +131,11 @@
   .addList{
     color: #e45a1a;
     font-weight: 600;
+    font-size: 16px;
+    &:hover {
+      background-color: white;
+      font-size: 17px;
+    }
   }
 
   .list-section {
