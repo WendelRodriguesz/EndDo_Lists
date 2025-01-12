@@ -6,7 +6,8 @@ import { IoSearchOutline } from "react-icons/io5";
 import SideBarItem from "./SideBarItem";
 import { IconType } from "react-icons"; 
 import styles from "./SideBar.module.scss";
-import { NavLink, useNavigate } from "react-router-dom";
+import ModalAddList from "../ModalAddList/ModalAddList";
+import { useNavigate } from "react-router-dom";
 import { List } from "../../types";
 import { getLists } from "../../api/axios";
 
@@ -17,7 +18,7 @@ type SidebarProps = {
 
 type MenuItem = {
   name: string;
-  icon: IconType; // Tipo para componentes de ícone
+  icon: IconType;
   path: string;
 };
 
@@ -27,7 +28,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isVisible, toggleSidebar }) => {
     { name: "Home", icon: CiBoxList, path: "/lists" },
   ];
   const [lists, setLists] = useState<List[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+
+  const handleAddList = async (title: string, priority: number) => {
+    console.log("Nova Lista:", { title, priority });
+    // Modificar para adicionar a lista no backend
+  };
 
   useEffect(() => {
     const fetchLists = async () => {
@@ -49,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isVisible, toggleSidebar }) => {
       }`}
     >
       <div className={styles.imagesection}>
-        <img src={"images/logov360.png"} alt="v360 Logo" />
+        <img src={"images/logoEnddo.png"} alt="EndDo Logo" />
         <PiSidebarSimple
           onClick={toggleSidebar}
           className={styles.toggle_button}
@@ -58,10 +65,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isVisible, toggleSidebar }) => {
         </PiSidebarSimple>
       </div>
       <div className={styles["menu-items"]}>
-        <NavLink to={"/lists"} className={styles.addList}>
-          <IoMdAddCircle size={35} />
-          <span>Adicionar lista</span>
-        </NavLink>
+        <div
+            className={styles.addList}
+            onClick={() => setIsModalOpen(true)}
+          >
+            <IoMdAddCircle size={35} />
+            <span>Adicionar lista</span>
+          </div>
+          <ModalAddList
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onAddList={handleAddList}
+          />
         {menuItems.map((item) => (
           <SideBarItem key={item.name} {...item} />
         ))}

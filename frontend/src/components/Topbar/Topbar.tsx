@@ -1,23 +1,37 @@
-import React from "react";
-// import { IoMdNotifications } from "react-icons/io";
-import v360Logo from '/images/logov360.png';
+import React, { useState } from "react";
 import styles from "./Topbar.module.scss";
-import Button from "../Button/Button";
+import { IoSearchCircle } from "react-icons/io5";
 
-const Topbar: React.FC = () => {
+interface TopbarProps {
+  isSidebarVisible: boolean;
+  onSearch: (query: string) => void;
+}
+
+const Topbar: React.FC<TopbarProps> = ({ isSidebarVisible, onSearch }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    onSearch(value); // Envia o valor para a função de busca
+  };
+
   return (
-    <div className={styles.topbar}>
-      <div className={styles.logo}>
-        <img src={v360Logo} alt="V360 Logo" />
+    <div
+      className={`${styles.topbar} ${
+        isSidebarVisible ? styles.sidebarVisible : styles.sidebarHidden
+      }`}
+    >
+      <img src={"images/logoBEnddo.png"} alt="EndDo Logo" />
+      <div className={styles.searchBar}>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearch}
+          placeholder="Buscar listas ou itens..."
+        />
+        <a className={styles.IconSearch}><IoSearchCircle size={'40px'}/></a>
       </div>
-      <h1>To-Do List</h1>
-      <Button type="submit">Nova Lista</Button>
-      <div className={styles.filters}>
-        
-      </div>
-      {/* <div className={styles.notification}>
-        <IoMdNotifications size={24} />
-      </div> */}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "1.0.0"
-  title: "TO-DO List case v360 API"
+  title: "EndDo dev case v360 API"
   description: "Documentação da API para gerenciar listas de tarefas e itens associados."
 host: "localhost:3000"
 basePath: "/"
