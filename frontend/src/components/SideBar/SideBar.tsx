@@ -1,16 +1,19 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import { PiSidebarSimple } from "react-icons/pi";
 import { CiBoxList } from "react-icons/ci";
 import { IoSearchOutline } from "react-icons/io5";
-import SideBarItem  from "./SideBarItem";
+import SideBarItem from "./SideBarItem";
 import { IconType } from "react-icons"; 
 import styles from "./SideBar.module.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { List } from "../../types";
-import { useNavigate } from "react-router-dom";
-import { getLists} from "../../api/axios";
+import { getLists } from "../../api/axios";
 
+type SidebarProps = {
+  isVisible: boolean;
+  toggleSidebar: () => void;
+};
 
 type MenuItem = {
   name: string;
@@ -18,7 +21,7 @@ type MenuItem = {
   path: string;
 };
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC<SidebarProps> = ({ isVisible, toggleSidebar }) => {
   const menuItems: MenuItem[] = [
     { name: "Buscar", icon: IoSearchOutline, path: "/search" },
     { name: "Home", icon: CiBoxList, path: "/lists" },
@@ -39,24 +42,26 @@ const Sidebar: React.FC = () => {
     fetchLists();
   }, []);
 
-
   return (
-    <div className={styles["sidebar"]}>
+    <div
+      className={`${styles.sidebar} ${
+        isVisible ? styles.visible : styles.hidden
+      }`}
+    >
       <div className={styles.imagesection}>
-          <img src={"images/logov360.png"} alt="v360 Logo" />
-          <PiSidebarSimple className={styles.show}/>
+        <img src={"images/logov360.png"} alt="v360 Logo" />
+        <PiSidebarSimple
+          onClick={toggleSidebar}
+          className={styles.toggle_button}
+        >
+          {isVisible ? "<<" : ">>"}
+        </PiSidebarSimple>
       </div>
       <div className={styles["menu-items"]}>
-        {/* <div className="addList"> */}
-          <NavLink
-            to={"/lists"}
-            // onClick={""}
-            className={styles.addList}
-          >
+        <NavLink to={"/lists"} className={styles.addList}>
           <IoMdAddCircle size={35} />
           <span>Adicionar lista</span>
-          </NavLink>
-        {/* </div> */}
+        </NavLink>
         {menuItems.map((item) => (
           <SideBarItem key={item.name} {...item} />
         ))}
@@ -67,12 +72,11 @@ const Sidebar: React.FC = () => {
         <ul>
           {lists.map((list) => (
             <li key={list.id} onClick={() => navigate(`/lists/${list.id}`)}>
-              {list.title}
+              #{list.id} <div className={styles.list_title}>- {list.title}</div>
             </li>
           ))}
         </ul>
       </div>
-
     </div>
   );
 };
