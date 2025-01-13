@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import { PiSidebarSimple } from "react-icons/pi";
 import { CiBoxList } from "react-icons/ci";
@@ -8,8 +8,9 @@ import { IconType } from "react-icons";
 import styles from "./SideBar.module.scss";
 import ModalAddList from "../ModalAddList/ModalAddList";
 import { useNavigate } from "react-router-dom";
-import { List } from "../../types";
-import { getLists, createList } from "../../api/axios";
+// import { List } from "../../types";
+// import { getLists, createList } from "../../api/axios";
+import { useListContext } from "../ListContext/ListContext";
 
 type SidebarProps = {
   isVisible: boolean;
@@ -27,34 +28,18 @@ const Sidebar: React.FC<SidebarProps> = ({ isVisible, toggleSidebar }) => {
     // { name: "Buscar", icon: IoSearchOutline, path: "/search" },
     { name: "Home", icon: CiBoxList, path: "/lists" },
   ];
-  const [lists, setLists] = useState<List[]>([]);
+  const { lists, addList } = useListContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleAddList = async (title: string, priority: number) => {
     try {
-      // Envia a nova lista para o backend
-      const newList = await createList(title, priority);
-      
-      // Atualiza o estado das listas com a nova lista
-      setLists((prevLists) => [...prevLists, newList]);
+      await addList(title, priority);
+      setIsModalOpen(false); // Fecha o modal após adicionar a lista
     } catch (error) {
       console.error("Erro ao adicionar lista:", error);
     }
   };
-
-  useEffect(() => {
-    const fetchLists = async () => {
-      try {
-        const data = await getLists();
-        setLists(data);
-      } catch (error) {
-        console.error("Erro ao carregar listas:", error);
-      }
-    };
-
-    fetchLists();
-  }, []);
 
   return (
     <div
@@ -76,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isVisible, toggleSidebar }) => {
             className={styles.addList}
             onClick={() => setIsModalOpen(true)}
           >
-            <IoMdAddCircle size={35} />
+            <IoMdAddCircle />
             <span>Adicionar lista</span>
           </div>
           <ModalAddList

@@ -39,16 +39,16 @@ const Layout: React.FC<LayoutProps> = ({ children, onSearchResults }) => {
 
   return (
     <div
-      className={`${styles.layout} ${
-        isSidebarVisible ? styles["sidebar-visible"] : styles["sidebar-hidden"]
-      }`}
-    >
-      <Topbar isSidebarVisible={isSidebarVisible} onSearch={handleSearch} />
-      <Sidebar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
-      <div className={styles.mainLayout}>
-        <div className={styles.content}>{children}</div>
+        className={`${styles.layout} ${
+          isSidebarVisible ? styles["sidebar-visible"] : styles["sidebar-hidden"]
+        }`}
+      >
+        <Topbar isSidebarVisible={isSidebarVisible} onSearch={handleSearch} />
+        <Sidebar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+        <div className={styles.mainLayout}>
+          <div className={styles.content}>{children}</div>
+        </div>
       </div>
-    </div>
   );
 };
 
