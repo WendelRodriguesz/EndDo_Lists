@@ -1,57 +1,57 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { List } from "../../types";
-import { getLists, createList, updateList, deleteList } from "../../api/axios";
+import { List } from "../../../types";
+import { getLists, createList, updateList, deleteList } from "../../../api/axios";
 
 interface ListContextProps {
   lists: List[];
   fetchLists: () => void;
-  addList: (title: string, priority: number) => void;
+  addList: (title: string, priority: string, category: string) => void;
   editList: (id: number, data: Partial<List>) => void;
   removeList: (id: number) => void;
 }
 
-const ListContext = createContext<ListContextProps | undefined>(undefined);
+export const ListContext = createContext<ListContextProps | undefined>(undefined);
 
 export const ListProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [lists, setLists] = useState<List[]>([]);
+  const [isFetched, setIsFetched] = useState(false); // Flag para evitar chamadas repetidas
 
-  // Carregar listas da API
   const fetchLists = async () => {
-    try {
-      const data = await getLists();
-      setLists(data);
-    } catch (error) {
-      console.error("Erro ao carregar listas:", error);
+    if (!isFetched) {
+      try {
+        const data = await getLists();
+        setLists(data);
+        setIsFetched(true);
+      } catch (error) {
+        console.error("Erro ao carregar listas:", error);
+      }
     }
   };
 
-  // Adicionar uma lista
-  const addList = async (title: string, priority: number) => {
+  const addList = async (title: string, priority: string, category: string) => {
     try {
-      const newList = await createList(title, priority);
-      setLists((prevLists) => [...prevLists, newList]);
+      const newList = await createList(title, priority, category);
+      setLists((prev) => [...prev, newList]);
     } catch (error) {
       console.error("Erro ao adicionar lista:", error);
     }
   };
 
-  // Editar uma lista
   const editList = async (id: number, data: Partial<List>) => {
     try {
       const updatedList = await updateList(id, data);
-      setLists((prevLists) =>
-        prevLists.map((list) => (list.id === id ? updatedList : list))
+      setLists((prev) =>
+        prev.map((list) => (list.id === id ? updatedList : list))
       );
     } catch (error) {
       console.error("Erro ao editar lista:", error);
     }
   };
 
-  // Remover uma lista
   const removeList = async (id: number) => {
     try {
       await deleteList(id);
-      setLists((prevLists) => prevLists.filter((list) => list.id !== id));
+      setLists((prev) => prev.filter((list) => list.id !== id));
     } catch (error) {
       console.error("Erro ao remover lista:", error);
     }

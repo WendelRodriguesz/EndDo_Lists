@@ -193,7 +193,9 @@ definitions:
       title:
         type: "string"
       priority:
-        type: "integer"
+        type: "string"
+      category:
+        type: "string"
       completed:
         type: "boolean"
       created_at:
@@ -210,7 +212,9 @@ definitions:
       title:
         type: "string"
       priority:
-        type: "integer"
+        type: "string"
+      category:
+        type: "string"
       completed:
         type: "boolean"
   UpdateList:
@@ -219,7 +223,9 @@ definitions:
       title:
         type: "string"
       priority:
-        type: "integer"
+        type: "string"
+      category:
+        type: "string"
       completed:
         type: "boolean"
   Item:

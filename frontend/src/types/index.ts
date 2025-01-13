@@ -2,7 +2,8 @@ export interface List {
   id: number;
   title: string;
   completed: boolean;
-  priority: number;
+  priority: string;
+  category: string;
   created_at: string;
   updated_at: string;
 }

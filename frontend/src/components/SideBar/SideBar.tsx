@@ -10,7 +10,7 @@ import ModalAddList from "../ModalAddList/ModalAddList";
 import { useNavigate } from "react-router-dom";
 // import { List } from "../../types";
 // import { getLists, createList } from "../../api/axios";
-import { useListContext } from "../ListContext/ListContext";
+import { useListContext } from "../../utils/contexts/ListContext/ListContext";
 
 type SidebarProps = {
   isVisible: boolean;
@@ -32,9 +32,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isVisible, toggleSidebar }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleAddList = async (title: string, priority: number) => {
+  const handleAddList = async (title: string, priority: string, category: string) => {
     try {
-      await addList(title, priority);
+      await addList(title, priority, category);
       setIsModalOpen(false); // Fecha o modal após adicionar a lista
     } catch (error) {
       console.error("Erro ao adicionar lista:", error);

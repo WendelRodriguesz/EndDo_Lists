@@ -15,15 +15,17 @@ const List: React.FC<ListProps> = ({ lists, onEdit, onDelete }) => {
   const [itemCounts, setItemCounts] = useState<Record<number, number>>({});
 
   useEffect(() => {
-    const fetchCounts = async () => {
-      const counts: Record<number, number> = {};
-      for (const list of lists) {
-        counts[list.id] = await countItemsInList(list.id);
-      }
-      setItemCounts(counts);
-    };
+  const fetchCounts = async () => {
+    for (const list of lists) {
+      const count = await countItemsInList(list.id);
+      setItemCounts((prev) => ({
+        ...prev,
+        [list.id]: count,
+      }));
+    }
+  };
 
-    fetchCounts();
+  fetchCounts();
   }, [lists, countItemsInList]);
 
   return (

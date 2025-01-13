@@ -7,22 +7,6 @@ interface SearchResultsProps {
   results: { lists: List[]; items: Item[] };
 }
 
-// Função para traduzir a prioridade
-const translatePriority = (priority: number): string => {
-  switch (priority) {
-    case 1:
-      return "Baixa";
-    case 2:
-      return "Média";
-    case 3:
-      return "Importante";
-    case 4:
-      return "Urgente";
-    default:
-      return "Desconhecida";
-  }
-};
-
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   if (!results.lists.length && !results.items.length) {
     return <p className={styles.noResults}>Nenhum resultado encontrado.</p>;
@@ -35,17 +19,18 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {results.lists.map((list) => (
           <li
             key={`list-${list.id}`}
-            className={`${listStyles.listItem} ${list.completed ? listStyles.completed : ""} ${
-              listStyles[`priority-${list.priority}`]
-            }`}
+            className={`${listStyles.listItem} ${
+              list.completed ? listStyles.completed : ""
+            } ${listStyles[`priority-${list.priority.toLowerCase()}`]}`}
           >
             <div className={listStyles.listDetails}>
               <h3>{list.title}</h3>
               <p>
                 <strong>Prioridade:</strong>{" "}
-                <span className={listStyles.priority}>
-                  {translatePriority(list.priority)}
-                </span>
+                <span className={listStyles.priority}>{list.priority}</span>
+              </p>
+              <p>
+                <strong>Categoria:</strong> {list.category}
               </p>
               {results.items.filter((item) => item.list_id === list.id).length >
                 0 && (

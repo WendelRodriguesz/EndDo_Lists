@@ -21,7 +21,8 @@ Rswag::Api.configure do |config|
     definition :List do
       property :id, type: :integer
       property :title, type: :string
-      property :priority, type: :integer
+      property :priority, type: :string
+      property :category, type: :string
       property :completed, type: :boolean
       property :created_at, type: :string, format: :date_time
       property :updated_at, type: :string, format: :date_time

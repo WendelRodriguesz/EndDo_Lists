@@ -10,42 +10,29 @@ interface ListItemProps {
   itemCount: number;
 }
 
-const translatePriority = (priority: number): string => {
-  switch (priority) {
-    case 1:
-      return "Baixa";
-    case 2:
-      return "Média";
-    case 3:
-      return "Importante";
-    case 4:
-      return "Urgente";
-    default:
-      return "Desconhecida";
-  }
-};
-
 const ListItem: React.FC<ListItemProps> = ({ list, onEdit, onDelete, itemCount }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const handleEdit = async (title: string, priority: number) => {
-    await onEdit(list.id, { title, priority });
+  const handleEdit = async (title: string, priority: string, category: string) => {
+    await onEdit(list.id, { title, priority, category });
     setIsEditModalOpen(false); // Fecha o modal após a edição
   };
 
   return (
     <li
-      className={`${styles.listItem} ${styles[`priority-${list.priority}`]} ${
-        list.completed ? styles.completed : ""
-      }`}
+      className={`${styles.listItem} ${
+        styles[`priority-${list.priority.toLowerCase()}`]
+      } ${list.completed ? styles.completed : ""}`}
     >
       <div className={styles.listDetails}>
         <h3>{list.title}</h3>
         <p>
           <strong>Prioridade:</strong>{" "}
-          <span className={styles.priority}>
-            {translatePriority(list.priority)}
-          </span>
+          <span className={styles.priority}>{list.priority}</span>
+        </p>
+        <p>
+          <strong>Categoria:</strong>{" "}
+          <span className={styles.category}>{list.category}</span>
         </p>
         <p>
           <strong>Status:</strong> {list.completed ? "Concluída" : "Pendente"}
@@ -76,6 +63,7 @@ const ListItem: React.FC<ListItemProps> = ({ list, onEdit, onDelete, itemCount }
           onAddList={handleEdit}
           initialTitle={list.title}
           initialPriority={list.priority}
+          initialCategory={list.category}
         />
       )}
     </li>

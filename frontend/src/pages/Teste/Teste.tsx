@@ -5,7 +5,7 @@ import Layout from "../../components/LayoutPages/Layout";
 import List from "../../components/List/List";
 import SearchResults from "../../components/SearchResults/SearchResults";
 import { List as ListType, Item } from "../../types";
-import { useListContext } from "../../components/ListContext/ListContext";
+import { useListContext } from "../../utils/contexts/ListContext/ListContext";
 import { filterAndSortLists } from "../../utils/filterAndSortLists";
 
 import useSearch from "../../hooks/useSearch";

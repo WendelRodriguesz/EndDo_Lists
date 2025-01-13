@@ -14,12 +14,14 @@ export const getLists = async (): Promise<List[]> => {
 // Criar lista
 export const createList = async (
   title: string,
-  priority: number = 1
+  priority: string,
+  category: string
 ): Promise<List> => {
   const response = await api.post<List>("/lists", {
     title,
     completed: false,
     priority,
+    category,
   });
   return response.data;
 };

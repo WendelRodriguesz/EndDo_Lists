@@ -6,32 +6,37 @@ import Button from "../Button/Button";
 interface ModalAddListProps {
   isOpen: boolean;
   onClose: () => void;
-  onAddList: (title: string, priority: number) => Promise<void>;
-  initialTitle?: string; 
-  initialPriority?: number; 
+  onAddList: (title: string, priority: string, category: string) => Promise<void>;
+  initialTitle?: string;
+  initialPriority?: string;
+  initialCategory?: string;
 }
 
 const ModalAddList: React.FC<ModalAddListProps> = ({
   isOpen,
   onClose,
   onAddList,
-  initialTitle = "", 
-  initialPriority = 1, 
+  initialTitle = "",
+  initialPriority = "Baixa",
+  initialCategory = "",
 }) => {
   const [title, setTitle] = useState<string>(initialTitle);
-  const [priority, setPriority] = useState<number>(initialPriority);
+  const [priority, setPriority] = useState<string>(initialPriority);
+  const [category, setCategory] = useState<string>(initialCategory);
 
   useEffect(() => {
-    setTitle(initialTitle); 
+    setTitle(initialTitle);
     setPriority(initialPriority);
-  }, [initialTitle, initialPriority]);
+    setCategory(initialCategory || "");
+  }, [initialTitle, initialPriority, initialCategory]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (title.trim()) {
-      onAddList(title, priority);
+    if (title.trim() && category.trim()) {
+      onAddList(title, priority, category);
       setTitle("");
-      setPriority(1);
+      setPriority("Baixa");
+      setCategory("");
       onClose();
     }
   };
@@ -63,14 +68,27 @@ const ModalAddList: React.FC<ModalAddListProps> = ({
             <select
               id="priority"
               value={priority}
-              onChange={(e) => setPriority(Number(e.target.value))}
+              onChange={(e) => setPriority(e.target.value)}
               className={styles.select}
             >
-              <option value={1}>Baixa</option>
-              <option value={2}>Média</option>
-              <option value={3}>Importante</option>
-              <option value={4}>Urgente</option>
+              <option value="Baixa">Baixa</option>
+              <option value="Média">Média</option>
+              <option value="Importante">Importante</option>
+              <option value="Urgente">Urgente</option>
             </select>
+          </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="category" className={styles.label}>
+              Categoria:
+            </label>
+            <input
+              id="category"
+              type="text"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              placeholder="Ex: Trabalho, Estudo, Lazer"
+              className={styles.input}
+            />
           </div>
           <div className={styles.buttons}>
             <Button type="button" onClick={onClose}>
