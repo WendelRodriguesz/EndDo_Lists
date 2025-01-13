@@ -1,34 +1,30 @@
-import React from "react";
+import React,  { useEffect, useState }  from "react";
 import styles from "./List.module.scss";
 import { List as ListType } from "../../types";
 import ListItem from "../ListItem/ListItem";
-import { deleteList, updateList } from "../../api/axios";
+import useItems from "../../hooks/useItems";
 
 interface ListProps {
   lists: ListType[];
-  setLists: React.Dispatch<React.SetStateAction<ListType[]>>;
+  onEdit: (id: number, data: Partial<ListType>) => void;
+  onDelete: (id: number) => void;
 }
 
-const List: React.FC<ListProps> = ({ lists, setLists }) => {
-  const handleEdit = async (id: number, data: Partial<ListType>) => {
-    try {
-      const updatedList = await updateList(id, data);
-      setLists((prevLists) =>
-        prevLists.map((list) => (list.id === id ? updatedList : list))
-      );
-    } catch (error) {
-      console.error("Erro ao editar lista:", error);
-    }
-  };
+const List: React.FC<ListProps> = ({ lists, onEdit, onDelete }) => {
+  const { countItemsInList } = useItems();
+  const [itemCounts, setItemCounts] = useState<Record<number, number>>({});
 
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteList(id);
-      setLists((prevLists) => prevLists.filter((list) => list.id !== id));
-    } catch (error) {
-      console.error("Erro ao excluir lista:", error);
-    }
-  };
+  useEffect(() => {
+    const fetchCounts = async () => {
+      const counts: Record<number, number> = {};
+      for (const list of lists) {
+        counts[list.id] = await countItemsInList(list.id);
+      }
+      setItemCounts(counts);
+    };
+
+    fetchCounts();
+  }, [lists, countItemsInList]);
 
   return (
     <ul className={styles.list}>
@@ -36,9 +32,9 @@ const List: React.FC<ListProps> = ({ lists, setLists }) => {
         <ListItem
           key={list.id}
           list={list}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-          itemCount={5} // Substitua pelo número real de itens
+          onEdit={onEdit}
+          onDelete={onDelete}
+          itemCount={itemCounts[list.id] || 0} 
         />
       ))}
     </ul>

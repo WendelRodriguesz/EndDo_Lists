@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./ListItem.module.scss";
 import { List } from "../../types";
-import ModalAddList from "../ModalAddList/ModalAddList"; 
+import ModalAddList from "../ModalAddList/ModalAddList";
 
 interface ListItemProps {
   list: List;
@@ -73,14 +73,13 @@ const ListItem: React.FC<ListItemProps> = ({ list, onEdit, onDelete, itemCount }
         <ModalAddList
           isOpen={isEditModalOpen}
           onClose={() => setIsEditModalOpen(false)}
-          onAddList={handleEdit} 
-          initialTitle={list.title} // Passa o título atual
-          initialPriority={list.priority} // Passa a prioridade atual
+          onAddList={handleEdit}
+          initialTitle={list.title}
+          initialPriority={list.priority}
         />
       )}
     </li>
   );
 };
-
 
 export default ListItem;
