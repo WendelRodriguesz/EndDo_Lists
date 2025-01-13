@@ -1,78 +1,43 @@
 import { useState } from "react";
-import axios from "../api/axios";
+import useApi from "./useApi";
 import { Item } from "../types";
 
 const useItems = () => {
   const [items, setItems] = useState<Item[]>([]);
+  const { request } = useApi();
 
-  // Listar itens de uma lista
   const fetchItems = async (listId: number) => {
-    try {
-      const response = await axios.get<Item[]>(`/lists/${listId}/items`);
-      setItems(response.data);
-    } catch (error) {
-      console.error("Erro ao carregar os itens:", error);
-    }
+    const data = await request<Item[]>("get", `/lists/${listId}/items`);
+    if (data) setItems(data);
   };
 
-  // Adicionar um item a uma lista
-  const createItem = async (listId: number, data: Partial<Item>) => {
-    try {
-      const response = await axios.post<Item>(`/lists/${listId}/items`, data);
-      setItems((prev) => [...prev, response.data]);
-    } catch (error) {
-      console.error("Erro ao criar o item:", error);
-    }
+  const createItem = async (listId: number, item: Partial<Item>) => {
+    const data = await request<Item>("post", `/lists/${listId}/items`, item);
+    if (data) setItems((prev) => [...prev, data]);
   };
 
-  // Atualizar um item
-  const updateItem = async (
-    listId: number,
-    itemId: number,
-    data: Partial<Item>
-  ) => {
-    try {
-      const response = await axios.patch<Item>(
-        `/lists/${listId}/items/${itemId}`,
-        data
-      );
+  const updateItem = async (listId: number, itemId: number, updates: Partial<Item>) => {
+    const data = await request<Item>("patch", `/lists/${listId}/items/${itemId}`, updates);
+    if (data) {
       setItems((prev) =>
-        prev.map((item) => (item.id === itemId ? response.data : item))
+        prev.map((item) => (item.id === itemId ? data : item))
       );
-    } catch (error) {
-      console.error("Erro ao atualizar o item:", error);
     }
   };
 
-  // Excluir um item
   const deleteItem = async (listId: number, itemId: number) => {
-    try {
-      await axios.delete(`/lists/${listId}/items/${itemId}`);
+    const success = await request<null>("delete", `/lists/${listId}/items/${itemId}`);
+    if (success !== null) {
       setItems((prev) => prev.filter((item) => item.id !== itemId));
-    } catch (error) {
-      console.error("Erro ao excluir o item:", error);
     }
   };
 
-  // Contar itens por lista
   const countItemsInList = async (listId: number): Promise<number> => {
-    try {
-      const response = await axios.get<Item[]>(`/lists/${listId}/items`);
-      return response.data.length;
-    } catch (error) {
-      console.error("Erro ao contar os itens:", error);
-      return 0;
-    }
+    const data = await request<Item[]>("get", `/lists/${listId}/items`);
+    return data ? data.length : 0;
   };
 
-  return {
-    items,
-    fetchItems,
-    createItem,
-    updateItem,
-    deleteItem,
-    countItemsInList,
-  };
+  return { items, fetchItems, createItem, updateItem, deleteItem, countItemsInList };
 };
 
 export default useItems;

@@ -1,60 +1,59 @@
 import React, { useState } from "react";
 import { FaArrowUpShortWide, FaArrowDownWideShort } from "react-icons/fa6";
 import styles from "./FiltersBar.module.scss";
+// import { filterAndSort } from "../../utils/filterAndSort";
 
 interface FiltersBarProps {
-  onSort: (sortBy: string, order: string) => void;
-  onFilter: (filterBy: string) => void;
+  onFilterAndSort: (
+    filterBy: string,
+    sortBy: string,
+    sortOrder: "asc" | "desc"
+  ) => void;
 }
 
-const FiltersBar: React.FC<FiltersBarProps> = ({ onSort, onFilter }) => {
-  const [selectedSort, setSelectedSort] = useState("created_at");
-  const [selectedFilter, setSelectedFilter] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc"); // Estado para o sentido da ordenação
+const FiltersBar: React.FC<FiltersBarProps> = ({ onFilterAndSort }) => {
+  const [filterBy, setFilterBy] = useState("");
+  const [sortBy, setSortBy] = useState("created_at");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    setSelectedSort(value);
-    onSort(value, sortOrder); // Envia o critério e a ordem ao pai
+    setSortBy(value);
+    onFilterAndSort(filterBy, value, sortOrder);
   };
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
-    setSelectedFilter(value);
-    onFilter(value); // Envia o critério de filtro ao pai
+    setFilterBy(value);
+    onFilterAndSort(value, sortBy, sortOrder);
   };
 
   const toggleSortOrder = () => {
     const newOrder = sortOrder === "asc" ? "desc" : "asc";
     setSortOrder(newOrder);
-    onSort(selectedSort, newOrder); // Atualiza a ordenação com a nova ordem
+    onFilterAndSort(filterBy, sortBy, newOrder);
   };
 
   return (
     <div className={styles.filtersBar}>
-     
       <div className={styles.filterSection}>
-        <label htmlFor="filter">Classificar por:</label>
-        <select id="filter" value={selectedFilter} onChange={handleFilterChange}>
+        <label>Classificar por:</label>
+        <select value={filterBy} onChange={handleFilterChange}>
           <option value="">Todos</option>
           <option value="category">Categoria</option>
           <option value="priority">Prioridade</option>
         </select>
-      </div> 
+      </div>
       <div className={styles.sortSection}>
-        <label htmlFor="sort">Ordenar por:</label>
-        <select id="sort" value={selectedSort} onChange={handleSortChange}>
-          <option value="created_at">Data de criação</option>
-          <option value="due_date">Data de término</option>
+        <label>Ordenar por:</label>
+        <select value={sortBy} onChange={handleSortChange}>
+          <option value="created_at">Data de Criação</option>
+          <option value="due_date">Data de Término</option>
           <option value="priority">Prioridade</option>
-          <option value="alphabetical">Ordem alfabética</option>
+          <option value="title">Título</option>
         </select>
-        <button
-          type="button"
-          className={styles.sortOrderButton}
-          onClick={toggleSortOrder}
-        >
-          {sortOrder === "asc" ? (
+        <button className={styles.sortOrderButton} onClick={toggleSortOrder}>
+        {sortOrder === "asc" ? (
             <FaArrowUpShortWide size={15} />
           ) : (
             <FaArrowDownWideShort size={15} />
