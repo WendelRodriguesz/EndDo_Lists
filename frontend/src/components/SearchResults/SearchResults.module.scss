@@ -1,0 +1,48 @@
+@use "../ListItem/ListItem.module.scss"; // Importa os estilos do ListItem
+
+.searchResults {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .resultsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .itemsList {
+      list-style: none;
+      padding: 10px 0 0;
+      margin: 10px 0 0;
+      border-top: 1px solid #eee;
+
+      .item {
+        padding: 8px 12px;
+        border-radius: 4px;
+        background-color: #f5f5f5;
+        margin-bottom: 5px;
+
+        &:hover {
+          background-color: #e9ecef;
+        }
+
+        .itemTitle {
+          font-weight: bold;
+          color: #333;
+        }
+
+        .itemCategory {
+          font-size: 12px;
+          color: #666;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}

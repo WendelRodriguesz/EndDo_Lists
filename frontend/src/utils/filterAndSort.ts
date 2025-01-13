@@ -1,4 +1,5 @@
 import { List, Item } from "../types";
+
 export const filterAndSort = (
   data: { lists: List[]; items: Item[] },
   filterBy: string,
@@ -15,12 +16,18 @@ export const filterAndSort = (
     });
   };
 
+  // Filtrar listas
   const filteredLists = filterBy
-    ? data.lists.filter((list) => list.title.includes(filterBy))
+    ? data.lists.filter((list) =>
+        list.title.toLowerCase().includes(filterBy.toLowerCase())
+      )
     : data.lists;
 
+  // Filtrar itens com base na categoria ou outros critérios
   const filteredItems = filterBy
-    ? data.items.filter((item) => item.category.includes(filterBy))
+    ? data.items.filter((item) =>
+        item.category.toLowerCase().includes(filterBy.toLowerCase())
+      )
     : data.items;
 
   return {

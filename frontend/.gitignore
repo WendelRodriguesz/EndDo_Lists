@@ -11,8 +11,6 @@ node_modules
 dist
 dist-ssr
 *.local
-src/pages/Teste/
-frontend/src/components/SideBar
 frontend/src/components/ButtonSend
 frontend/src/components/ButtonCancel
 # Editor directories and files

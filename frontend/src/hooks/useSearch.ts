@@ -3,28 +3,40 @@ import axios from "../api/axios";
 import { List, Item } from "../types";
 
 const useSearch = () => {
-  const [results, setResults] = useState<{ lists: List[]; items: Item[] }>({
+  const [results] = useState<{ lists: List[]; items: Item[] }>({
     lists: [],
     items: [],
   });
 
   const search = async (query: string): Promise<{ lists: List[]; items: Item[] }> => {
     if (!query.trim()) {
-      const emptyResults = { lists: [], items: [] };
-      setResults(emptyResults);
-      return emptyResults; // Retorna resultados vazios
+      return { lists: [], items: [] };
     }
-
+  
     try {
-      const response = await axios.get("/api/search", { params: { query } });
-      const data = response.data;
-      setResults(data);
-      return data; // Retorna os resultados da API
+      const listsResponse = await axios.get("/lists"); // Carrega todas as listas
+      const lists = listsResponse.data;
+  
+      const itemsPromises = lists.map(async (list: List) => {
+        const response = await axios.get(`/lists/${list.id}/items`); // Carrega itens de cada lista
+        return response.data;
+      });
+  
+      const items = (await Promise.all(itemsPromises)).flat(); // Une os itens de todas as listas
+  
+      const filteredData = {
+        lists: lists.filter((list: List) =>
+          list.title.toLowerCase().includes(query.toLowerCase())
+        ),
+        items: items.filter((item: Item) =>
+          item.title.toLowerCase().includes(query.toLowerCase())
+        ),
+      };
+  
+      return filteredData;
     } catch (error) {
-      console.error("Erro ao buscar:", error);
-      const emptyResults = { lists: [], items: [] };
-      setResults(emptyResults);
-      return emptyResults; // Retorna resultados vazios em caso de erro
+      console.error("Erro ao buscar dados:", error);
+      return { lists: [], items: [] };
     }
   };
 

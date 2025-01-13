@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import ListDetails from "./pages/ListDetails";
+import ListDetails from "./pages/ListDetails/ListDetails";
 import Teste from "./pages/Teste/Teste";
 import { ListProvider } from "./components/ListContext/ListContext";
 
