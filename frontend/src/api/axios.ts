@@ -24,6 +24,19 @@ export const createList = async (
   return response.data;
 };
 
+    // Atualizar uma lista 
+  export const updateList = async (id: number, data: Partial<List>): Promise<List> => {
+    const response = await api.patch<List>(`/lists/${id}`, data);
+    return response.data;
+  };
+
+
+  // Excluir uma lista
+  export const deleteList = async (id: number): Promise<void> => {
+    await api.delete(`/lists/${id}`);
+  };
+
+
 // Obter os itens de uma lista específica
 export const getItemsByListId = async (listId: number): Promise<Item[]> => {
   try {

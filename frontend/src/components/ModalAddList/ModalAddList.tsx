@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import styles from "./ModalAddList.module.scss";
 import Button from "../Button/Button";
@@ -7,15 +7,24 @@ interface ModalAddListProps {
   isOpen: boolean;
   onClose: () => void;
   onAddList: (title: string, priority: number) => Promise<void>;
+  initialTitle?: string; 
+  initialPriority?: number; 
 }
 
 const ModalAddList: React.FC<ModalAddListProps> = ({
   isOpen,
   onClose,
   onAddList,
+  initialTitle = "", 
+  initialPriority = 1, 
 }) => {
-  const [title, setTitle] = useState<string>("");
-  const [priority, setPriority] = useState<number>(1);
+  const [title, setTitle] = useState<string>(initialTitle);
+  const [priority, setPriority] = useState<number>(initialPriority);
+
+  useEffect(() => {
+    setTitle(initialTitle); 
+    setPriority(initialPriority);
+  }, [initialTitle, initialPriority]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,11 +40,8 @@ const ModalAddList: React.FC<ModalAddListProps> = ({
 
   return ReactDOM.createPortal(
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div
-        className={styles.modalContent}
-        onClick={(e) => e.stopPropagation()} 
-      >
-        <h2>Adicionar Nova Lista</h2>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <h2>{initialTitle ? "Editar Lista" : "Adicionar Nova Lista"}</h2>
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor="title" className={styles.label}>
@@ -70,12 +76,14 @@ const ModalAddList: React.FC<ModalAddListProps> = ({
             <Button type="button" onClick={onClose}>
               Cancelar
             </Button>
-            <Button type="submit">Adicionar</Button>
+            <Button type="submit">
+              {initialTitle ? "Salvar Alterações" : "Adicionar"}
+            </Button>
           </div>
         </form>
       </div>
     </div>,
-    document.body 
+    document.body
   );
 };
 

@@ -1,0 +1,112 @@
+.listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.2s ease;
+  
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #eeeeee;
+    }
+  
+    &.completed {
+      background-color: #eaeaea; /* Fundo cinza claro */
+      color: #aaa; /* Texto apagado */
+      text-decoration: line-through; /* Texto riscado */
+  
+      h3 {
+        text-decoration: line-through;
+        color: #888;
+      }
+  
+      .priority {
+        color: #bbb; /* Cor mais apagada para a prioridade */
+      }
+    }
+  
+    &.priority-1 {
+      h3,
+      .priority {
+        color: #1cc72a;
+      }
+    }
+  
+    &.priority-2 {
+      h3,
+      .priority {
+        color: #226dceb6;
+      }
+    }
+  
+    &.priority-3 {
+      h3,
+      .priority {
+        color: #f87c17d8;
+      }
+    }
+  
+    &.priority-4 {
+      h3,
+      .priority {
+        color: #da1212f1;
+      }
+    }
+  
+    .listDetails {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+  
+      h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+  
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: #555;
+  
+        strong {
+          font-weight: bold;
+        }
+      }
+    }
+  
+    .actions {
+      display: flex;
+      gap: 10px;
+  
+      button {
+        padding: 5px 10px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+  
+        &.editButton {
+          background-color: #e0f7fa;
+          color: #00796b;
+  
+          &:hover {
+            background-color: #b2dfdb;
+          }
+        }
+  
+        &.deleteButton {
+          background-color: #ffebee;
+          color: #c62828;
+  
+          &:hover {
+            background-color: #ef9a9a;
+          }
+        }
+      }
+    }
+  }
+  
