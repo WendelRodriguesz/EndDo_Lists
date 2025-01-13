@@ -9,6 +9,7 @@ class ItemsController < ApplicationController
   def create
     item = @list.items.new(item_params)
     if item.save
+      @list.update(item_count: @list.items.count)
       render json: item, status: :created
     else
       render json: { errors: item.errors.full_messages }, status: :unprocessable_entity
@@ -26,8 +27,12 @@ class ItemsController < ApplicationController
 
   def destroy
     item = @list.items.find(params[:id])
-    item.destroy
-    render json: { message: "Item deletado com sucesso!" }
+    if item.destroy
+      @list.update(item_count: @list.items.count)
+      render json: { message: "Item deleted successfully" }
+    else
+      render json: { errors: "Failed to delete item" }, status: :unprocessable_entity
+    end
   end
 
   private
@@ -37,6 +42,6 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:title, :description, :completed, :category, :due_date)
+    params.require(:item).permit(:title, :completed, :due_date)
   end
 end
