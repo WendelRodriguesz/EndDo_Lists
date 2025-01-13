@@ -7,10 +7,9 @@ interface ListItemProps {
   list: List;
   onEdit: (id: number, data: Partial<List>) => void;
   onDelete: (id: number) => void;
-  itemCount: number;
 }
 
-const ListItem: React.FC<ListItemProps> = ({ list, onEdit, onDelete, itemCount }) => {
+const ListItem: React.FC<ListItemProps> = ({ list, onEdit, onDelete }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const handleEdit = async (title: string, priority: string, category: string) => {
@@ -38,7 +37,7 @@ const ListItem: React.FC<ListItemProps> = ({ list, onEdit, onDelete, itemCount }
           <strong>Status:</strong> {list.completed ? "Concluída" : "Pendente"}
         </p>
         <p>
-          <strong>Itens:</strong> {itemCount}
+          <strong>Itens:</strong> {list.item_count}
         </p>
       </div>
       <div className={styles.actions}>

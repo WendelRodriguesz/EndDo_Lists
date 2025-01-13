@@ -32,12 +32,7 @@ const useItems = () => {
     }
   };
 
-  const countItemsInList = async (listId: number): Promise<number> => {
-    const data = await request<Item[]>("get", `/lists/${listId}/items`);
-    return data ? data.length : 0;
-  };
-
-  return { items, fetchItems, createItem, updateItem, deleteItem, countItemsInList };
+  return { items, fetchItems, createItem, updateItem, deleteItem };
 };
 
 export default useItems;

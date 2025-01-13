@@ -1,8 +1,7 @@
-import React,  { useEffect, useState }  from "react";
+import React from "react";
 import styles from "./List.module.scss";
 import { List as ListType } from "../../types";
 import ListItem from "../ListItem/ListItem";
-import useItems from "../../hooks/useItems";
 
 interface ListProps {
   lists: ListType[];
@@ -11,23 +10,6 @@ interface ListProps {
 }
 
 const List: React.FC<ListProps> = ({ lists, onEdit, onDelete }) => {
-  const { countItemsInList } = useItems();
-  const [itemCounts, setItemCounts] = useState<Record<number, number>>({});
-
-  useEffect(() => {
-  const fetchCounts = async () => {
-    for (const list of lists) {
-      const count = await countItemsInList(list.id);
-      setItemCounts((prev) => ({
-        ...prev,
-        [list.id]: count,
-      }));
-    }
-  };
-
-  fetchCounts();
-  }, [lists, countItemsInList]);
-
   return (
     <ul className={styles.list}>
       {lists.map((list) => (
@@ -36,7 +18,6 @@ const List: React.FC<ListProps> = ({ lists, onEdit, onDelete }) => {
           list={list}
           onEdit={onEdit}
           onDelete={onDelete}
-          itemCount={itemCounts[list.id] || 0} 
         />
       ))}
     </ul>
