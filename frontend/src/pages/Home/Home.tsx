@@ -13,7 +13,7 @@ import useSearch from "../../hooks/useSearch";
 const Home: React.FC = () => {
   const { lists, editList, removeList } = useListContext();
   const { search } = useSearch();
-  const [filteredLists, setFilteredLists] = useState<ListType[]>(lists);
+  const [groupedLists, setGroupedLists] = useState<Record<string, ListType[]>>({});
   const [searchResults, setSearchResults] = useState<{ lists: ListType[]; items: Item[] }>({
     lists: [],
     items: [],
@@ -30,8 +30,19 @@ const Home: React.FC = () => {
       });
     } else {
       const sortedLists = filterAndSortLists(lists, filterBy, sortBy, sortOrder);
-      setFilteredLists(sortedLists);
+      setGroupedLists({ Todos: sortedLists }); // Renderiza todas as listas sem agrupamento
     }
+  };
+
+  const handleClassifyBy = (classifyBy: string) => {
+    // Agrupar listas pela classificação escolhida
+    const grouped = lists.reduce((acc: Record<string, ListType[]>, list) => {
+      const groupKey = list[classifyBy as keyof ListType]?.toString() || "Outros";
+      if (!acc[groupKey]) acc[groupKey] = [];
+      acc[groupKey].push(list);
+      return acc;
+    }, {});
+    setGroupedLists(grouped);
   };
 
   const handleSearch = async (query: string) => {
@@ -48,7 +59,14 @@ const Home: React.FC = () => {
   const handleConfirmDelete = () => {
     if (modalTarget) {
       removeList(modalTarget.id); // Remove a lista do contexto
-      setFilteredLists((prev) => prev.filter((list) => list.id !== modalTarget.id)); // Atualiza listas filtradas
+      setGroupedLists((prev) => {
+        const updated = { ...prev };
+        for (const groupKey in updated) {
+          updated[groupKey] = updated[groupKey].filter((list) => list.id !== modalTarget.id);
+          if (updated[groupKey].length === 0) delete updated[groupKey];
+        }
+        return updated;
+      });
       setIsModalOpen(false);
     }
   };
@@ -62,17 +80,26 @@ const Home: React.FC = () => {
     <div className={styles.container}>
       <Layout onSearchResults={handleSearch}>
         <h1>Minhas Listas</h1>
-        <FiltersBar onFilterAndSort={handleFilterAndSort} />
+        <FiltersBar
+          onFilterAndSort={handleFilterAndSort}
+          onClassifyBy={handleClassifyBy} // Novo método para classificar por grupos
+        />
         {searchResults.lists.length > 0 || searchResults.items.length > 0 ? (
           <SearchResults results={searchResults} />
+        ) : Object.keys(groupedLists).length > 0 ? (
+          // Renderiza as listas agrupadas
+          Object.entries(groupedLists).map(([group, lists]) => (
+            <div key={group} className={styles.group}>
+              <h2>{group}</h2>
+              <List
+                lists={lists}
+                onEdit={editList}
+                onDelete={handleDeleteClick} // Usa o modal ao deletar
+              />
+            </div>
+          ))
         ) : (
-          <div>
-            <List
-              lists={filteredLists.length > 0 ? filteredLists : lists}
-              onEdit={editList}
-              onDelete={handleDeleteClick} // Usa o modal ao deletar
-            />
-          </div>
+          <p>Nenhuma lista encontrada</p>
         )}
       </Layout>
 
