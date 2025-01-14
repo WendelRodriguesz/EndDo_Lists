@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ModalAddItem.module.scss";
-import Button from "../Button/Button";
 
 interface ModalAddItemProps {
   isOpen: boolean;
@@ -38,12 +37,12 @@ const ModalAddItem: React.FC<ModalAddItemProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.modalContent } onClick={(e) => e.stopPropagation()}>
         <h2>{initialTitle ? "Editar Item" : "Adicionar Item"}</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
-            <label htmlFor="title"><h4>Título do Item</h4></label>
+            <label htmlFor="title" className={styles.label}>Título do Item</label>
             <input
               id="title"
               type="text"
@@ -51,22 +50,26 @@ const ModalAddItem: React.FC<ModalAddItemProps> = ({
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Nome do item"
               required
+              className={styles.input}
             />
           </div>
           <div className={styles.inputGroup}>
-            <label htmlFor="dueDate"><h4>Data de Término</h4></label>
+            <label htmlFor="dueDate" className={styles.label}><h4>Data de Término</h4></label>
             <input
               id="dueDate"
               type="date"
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
+              className={styles.input}
             />
           </div>
           <div className={styles.buttons}>
-            <Button type="button" onClick={onClose}>
+          <button className={styles.cancelButton} type="button" onClick={onClose}>
               Cancelar
-            </Button>
-            <Button type="submit">Salvar</Button>
+            </button>
+            <button className={styles.confirmButton} type="submit">
+              {initialTitle ? "Salvar Alterações" : "Adicionar"}
+            </button>
           </div>
         </form>
       </div>

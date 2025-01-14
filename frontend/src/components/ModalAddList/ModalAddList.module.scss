@@ -77,10 +77,26 @@ h2 {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
+  }
+}
+.cancelButton {
+  background-color: #ffcdd2cc;
+  color: #d32f2f;
 
-    &:hover {
-      background-color: #582a9e2f;
-      color: #421c7c;
-    }
+  &:hover {
+    background-color: #ef9a9a;
+    height: 42px;
+    font-size: 15px;
+  }
+}
+
+.confirmButton {
+  background-color: #6bf067d0;
+  color: #065e0a;
+
+  &:hover {
+    background-color: #5fd363;
+    height: 45px;
+    font-size: 15px;
   }
 }

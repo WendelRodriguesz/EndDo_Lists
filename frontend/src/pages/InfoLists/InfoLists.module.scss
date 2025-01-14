@@ -1,48 +1,67 @@
 .infoLists {
-  h1{
+  h1 {
     color: #421c7c;
+    font-size: 24px;
+    margin: 0;
+    display: inline-block; /* Permite alinhar com o botão ao lado */
+    vertical-align: middle;
   }
 
-  .addButton {
+  .header {
     display: flex;
-    position: fixed;
-    top: 70px;
-    right: 40px;
-    background-color: #ec7322;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 58px;
-    cursor: pointer;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    svg{
-      font-size: 50px;
-      
-    }
+    margin-bottom: 20px;
+    margin-left: 20px;
 
-    &:hover {
-      background-color: #ffffff;
-      svg{
-        color: #342175;
-        font-size: 90px;
-      }
+    .title{
+      display: flex;
+
+      button {
+        margin-left: 20px;
+            background: none;
+            color: #ff1616;
+            font-size: 32px; /* Aumenta o tamanho do ícone */
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.2s;
+
+            &:hover {
+              color: #d32f2f;
+              transform: scale(1.2); /* Aumenta o tamanho ao passar o mouse */
+            }
+          }
+    }
+      
+      .addButton {
+        margin-right: 50px;
+        display: flex;
+        background-color: #421c7c ;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 70px; /* Aumenta o tamanho do botão */
+        height: 70px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 56px;
+        transition: background-color 0.3s, transform 0.2s;
+
+        svg {
+          font-size: 56px;
+        }
+
+        &:hover {
+          background-color:#ec7322;
+          transform: scale(1.1); /* Leve aumento ao passar o mouse */
+          svg {
+            color: #ffffff;
+          }
+        }
     }
   }
-  .deleteListButton {
-    display:flex;
-    button{
-      background-color: #ff000000;
-    color: #ff1616;
-    font-size: 28px;
-    &:hover {
-      color: #ff1616;
-      font-size: 30px;
-    }}
-    
-  }
+
   .itemsList {
     list-style: none;
     padding: 0;
@@ -52,54 +71,50 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px;
-      margin-bottom: 10px;
       border: 1px solid #ddd;
       border-radius: 4px;
+      margin-bottom: 10px;
       background-color: #f9f9f9;
-      &:hover {
-        background-color: #f0f0f0;
-      }
+      transition: background-color 0.2s;
 
       &.completed {
         text-decoration: line-through;
-        color: #888888;
+        color: #888;
         background-color: #e0e0e0;
       }
 
       .left {
         display: flex;
         align-items: center;
-        gap: 10px;
+        // gap: 50px;
 
         .checkButton {
-          // width: 10px;
-          // height: 10px;
-          // border: 1px solid #ccc;
-          // border-radius: 50%;
-          background-color: rgba(255, 255, 255, 0);
+          background: none;
+          border: none;
+          padding:20px 60px 20px 20px;
           cursor: pointer;
 
-          &:hover {
-            background-color: #f0f0f000;
-          }
-          
-          .check{
+          .check {
             color: rgb(20, 180, 42);
-            &:hover{
+
+            &:hover {
               color: rgb(151, 151, 151);
-              }
-          }
-          .nocheck{
-            color: rgb(83, 83, 83);
-            &:hover{
-              color: rgb(17, 184, 44);
-              }
-          }
-          font-size: 30px;
-          &:hover{
-            font-size: 33px;
             }
-          
+          }
+
+          .nocheck {
+            color: rgb(83, 83, 83);
+
+            &:hover {
+              color: rgb(17, 184, 44);
+            }
+          }
+
+          svg{
+            font-size: 40px;
+            &:hover {
+            font-size: 45px;
+          }}
         }
 
         .dueDate {
@@ -113,33 +128,30 @@
         gap: 10px;
 
         button {
-          background-color: #b2dfdb00;
-          padding: 5px 10px;
-          // font-size: 14px;
+          background: none;
           border: none;
-          border-radius: 5px;
-          color:#563f80;
           cursor: pointer;
-          transition: background-color 0.2s ease;
-    
-          &.editButton {
-            // color: #378a3b;
-            font-size: 20px;
-    
-            &:hover {
-              color: #06bb3d;
-              font-size: 22px;
-            }
+          font-size: 20px;
+          color: #563f80;
+          transition: color 0.3s, font-size 0.2s;
+          padding: 20px 10px 20px 0;
+          font-size: 25px;
+ 
+          &.editButton:hover {
+            color: #06bb3d;
           }
-    
-          &.deleteButton {
-            // color: #b31717;
-            font-size: 25px;
-            &:hover {
-              color: #ff1616;
-              font-size: 27px;
-            }
+
+          &.deleteButton:hover {
+            color: #ff1616;
+            font-size: 32px;
           }
+          &:hover{
+            font-size: 28px;
+          }
+        }
+        .deleteButton{
+          font-size: 28px;
+          margin-right: 30px;
         }
       }
     }

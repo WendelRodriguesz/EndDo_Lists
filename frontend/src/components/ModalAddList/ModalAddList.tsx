@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import styles from "./ModalAddList.module.scss";
-import Button from "../Button/Button";
 
 interface ModalAddListProps {
   isOpen: boolean;
@@ -91,12 +90,12 @@ const ModalAddList: React.FC<ModalAddListProps> = ({
             />
           </div>
           <div className={styles.buttons}>
-            <Button type="button" onClick={onClose}>
+            <button className={styles.cancelButton} type="button" onClick={onClose}>
               Cancelar
-            </Button>
-            <Button type="submit">
+            </button>
+            <button className={styles.confirmButton} type="submit">
               {initialTitle ? "Salvar Alterações" : "Adicionar"}
-            </Button>
+            </button>
           </div>
         </form>
       </div>

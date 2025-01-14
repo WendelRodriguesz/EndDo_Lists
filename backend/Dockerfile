@@ -2,8 +2,8 @@
 # check=error=true
 
 # This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t v360_todo .
-# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name v360_todo v360_todo
+# docker build -t enddo_list .
+# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name enddo_list enddo_list
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 

@@ -43,7 +43,7 @@ const ListDetail: React.FC<ListDetailProps> = ({ list, onEdit, onDelete }) => {
           <span className={styles.category}>{list.category === "" ? "Não definido" : list.category}</span>
         </p>
         <p>
-          <strong>Status:</strong> {list.completed ? "Concluída" : "Pendente"}
+          <strong>Status:</strong> {list.completed ? "Concluída" : "Pendente" }
         </p>
         <p>
           <strong>Qtd. de itens:</strong> {list.item_count}

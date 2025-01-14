@@ -139,14 +139,20 @@ const InforLists: React.FC = () => {
   return (
     <div className={styles.infoLists}>
       <Layout onSearchResults={handleSearch}>
-      <div className={styles.deleteListButton}><h1>{currentList ? currentList.title : "Carregando..."}</h1>
-        <button
-          onClick={() => handleDeleteClick(Number(id), "list")}
-        >
-          <MdDeleteForever />
+      <div className={styles.header}>
+        <div className={styles.title}>
+          <h1>{currentList ? currentList.title : "Carregando..."}</h1>
+          <button onClick={() => handleDeleteClick(Number(currentList?.id), "list")}>
+            <MdDeleteForever />
           </button>
-          </div>
+        </div>
+        <div className={styles.addButton} onClick={handleAddItemClick}>
+          <IoMdAddCircle />
+        </div>
+      </div>
+
         <FiltersBar onFilterAndSort={handleFilterAndSort} />
+
         <ul className={styles.itemsList}>
           {(searchResults.length > 0 ? searchResults : filteredItems).map((item) => (
             <li
@@ -154,10 +160,7 @@ const InforLists: React.FC = () => {
               className={`${styles.item} ${item.completed ? styles.completed : ""}`}
             >
               <div className={styles.left}>
-                <button
-                  className={styles.checkButton}
-                  onClick={() => toggleCompletion(item)}
-                >
+                <button className={styles.checkButton} onClick={() => toggleCompletion(item)}>
                   {item.completed ? (
                     <FaSquareCheck className={styles.check} />
                   ) : (
@@ -166,51 +169,39 @@ const InforLists: React.FC = () => {
                 </button>
                 <div>
                   <h3>{item.title}</h3>
-                  <p className={styles.dueDate}>Data de Término: {item.due_date === null ? "Não definido" : item.due_date}</p>
+                  <p className={styles.dueDate}>
+                    Data de Término: {item.due_date || "Não definido"}
+                  </p>
                 </div>
               </div>
               <div className={styles.actions}>
-                <button
-                  className={styles.editButton}
-                  onClick={() => handleEditItemClick(item)}
-                >
+                <button className={styles.editButton} onClick={() => handleEditItemClick(item)}>
                   <FaRegEdit />
                 </button>
-                <button
-                  className={styles.deleteButton}
-                  onClick={() => handleDeleteClick(item.id, "item")}
-                >
+                <button className={styles.deleteButton} onClick={() => handleDeleteClick(item.id, "item")}>
                   <MdDeleteForever />
                 </button>
               </div>
             </li>
           ))}
         </ul>
-        <div
-            className={styles.addButton}
-            onClick={() => handleAddItemClick()}
-          >
-            <IoMdAddCircle />
-          </div>
       </Layout>
 
-      {/* Modal de Adicionar/Editar */}
       {isAddEditModalOpen && (
         <ModalAddItem
           isOpen={isAddEditModalOpen}
           onClose={() => setIsAddEditModalOpen(false)}
           onSave={handleSaveItem}
-          initialTitle={editItem ? editItem.title : ""}
-          initialDueDate={editItem ? editItem.due_date : null}
+          initialTitle={editItem?.title || ""}
+          initialDueDate={editItem?.due_date || null}
         />
       )}
 
-      {/* Modal de Exclusão */}
       {isDeleteModalOpen && modalTarget && (
         <DeleteModal
           title="Confirmar Exclusão"
           description={
-            modalTarget?.type === "list"
+            modalTarget.type === "list"
               ? "Tem certeza que deseja excluir esta lista?"
               : "Tem certeza que deseja excluir este item?"
           }

@@ -10,11 +10,14 @@ interface DeleteModalProps {
 
 const DeleteModal: React.FC<DeleteModalProps> = ({ title, description, onConfirm, onCancel }) => {
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modal}>
+    <div className={styles.modalOverlay} onClick={onCancel}>
+      <div
+        className={styles.modalContent}
+        onClick={(e) => e.stopPropagation()}
+      >
         <h2>{title}</h2>
         <p>{description}</p>
-        <div className={styles.actions}>
+        <div className={styles.buttons}>
           <button className={styles.cancelButton} onClick={onCancel}>
             Cancelar
           </button>

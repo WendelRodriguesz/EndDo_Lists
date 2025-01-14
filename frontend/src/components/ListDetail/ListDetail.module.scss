@@ -2,12 +2,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   margin-bottom: 10px;
-  border-radius: 5px;
   background-color: #f9f9f9;
-  transition: box-shadow 0.2s ease;
-  cursor: pointer;
+  transition: background-color 0.2s;
+  cursor:pointer;
 
   &:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -97,25 +98,23 @@
       color:#563f80;
       cursor: pointer;
       transition: background-color 0.2s ease;
+      font-size: 25px;
 
-      &.editButton {
-        // color: #378a3b;
-        font-size: 25px;
-
-        &:hover {
-          color: #06bb3d;
-          font-size: 28px;
-        }
+      &.editButton:hover {
+        color: #06bb3d;
       }
 
-      &.deleteButton {
-        // color: #b31717;
-        font-size: 30px;
-        &:hover {
-          color: #ff1616;
-          font-size: 33px;
-        }
+      &.deleteButton:hover {
+        color: #ff1616;
+        font-size: 32px;
       }
+      &:hover{
+        font-size: 28px;
+      }
+    }
+    .deleteButton{
+      font-size: 28px;
+      margin-right: 30px;
     }
   }
 }

@@ -6,18 +6,18 @@ default: &default
 
 development:
   <<: *default
-  database: v360_todo_dev
+  database: enddo_dev
   username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PASSWORD"] %>
 
 test:
   <<: *default
-  database: v360_todo_test
+  database: enddo_test
   username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PASSWORD"] %>
 
 production:
   <<: *default
-  database: v360_todo_production
+  database: enddo_production
   username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PASSWORD"] %>

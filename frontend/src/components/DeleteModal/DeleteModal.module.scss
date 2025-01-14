@@ -11,14 +11,16 @@
   z-index: 1000;
 }
 
-.modal {
+.modalContent {
   background: #ffffffab;
   backdrop-filter: blur(2px);
-  padding: 20px 30px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
   width: 400px;
+  max-width: 90%;
+  position: relative;
+  text-align: center; /* Centraliza o conteúdo */
 }
 
 h2 {
@@ -27,41 +29,45 @@ h2 {
 }
 
 p {
-  color: #333;
   font-size: 16px;
-  margin-bottom: 30px;
+  color: #383838;
+  margin-bottom: 20px; /* Espaço antes dos botões */
 }
 
-.actions {
+.buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 10px;
 
   button {
     height: 40px;
     padding: 0 20px;
+    border: none;
     border-radius: 5px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    border: none;
     transition: background-color 0.3s;
+  }
+}
 
-    &.cancelButton {
-      background-color: #b6b6b6;
-      color: #333;
+.confirmButton {
+  background-color: #e7293c;
+  color: #ffffff;
 
-      &:hover {
-        background: #838383;
-      }
-    }
+  &:hover {
+    background-color: #e41313;
+    color: #ffffff;
+    font-size: 16px;
+  }
+}
 
-    &.confirmButton {
-      background: #f51b1f;
-      color: white;
+.cancelButton {
+  background-color: #c8e6c9ad;
+  color: #388e3c;
 
-      &:hover {
-        background: #da000b;
-      }
-    }
+  &:hover {
+    background-color: #a5d6a7;
+    font-size: 16px;
   }
 }
