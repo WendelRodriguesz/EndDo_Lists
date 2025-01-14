@@ -2,13 +2,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
   margin-bottom: 10px;
   background-color: #f9f9f9;
-  transition: background-color 0.2s;
-  cursor:pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
 
   &:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -16,89 +16,101 @@
   }
 
   &.completed {
-    background-color: #eaeaea; /* Fundo cinza claro */
-    color: #aaa; /* Texto apagado */
-    text-decoration: line-through; /* Texto riscado */
-
-    h3 {
-      text-decoration: line-through;
-      color: #888;
-    }
-
+    background-color: #eaeaea;
+    color: #aaa;
+    text-decoration: line-through;
+    
     .priority,
     .category {
-      color: #bbb; /* Cor mais apagada */
+      color: #bbb;
     }
+  }
+  h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
   }
 
   &.priority-baixa {
     h3,
-    .priority {
+    span {
       color: #1cc72a;
     }
   }
 
   &.priority-média {
     h3,
-    .priority {
+    span {
       color: #226dce;
     }
   }
 
   &.priority-importante {
     h3,
-    .priority {
+    span {
       color: #f87c17;
     }
   }
 
   &.priority-urgente {
     h3,
-    .priority {
+    span {
       color: #da1212;
     }
   }
-
+  
   .listDetails {
     display: flex;
     flex-direction: column;
-    gap: 5px;
 
-    h3 {
-      margin: 0;
-      font-size: 18px;
-    }
+    .header {
+      display: flex;
+      justify-content: space-between; /* Coloca o título e a prioridade nos lados opostos */
+      align-items: center;
+      margin-bottom: 10px;
 
-    p {
-      margin: 0;
-      font-size: 14px;
-      color: #555;
-
-      strong {
+      .priority {
+        font-size: 16px;
         font-weight: bold;
+        color: #555;
       }
     }
 
-    .category {
-      font-style: italic;
-      color: #555;
+    .detailsGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Divide em duas colunas */
+      gap: 5px 20px; /* Espaçamento entre as linhas e colunas */
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: #555;
+
+        strong {
+          font-weight: bold;
+        }
+      }
+
+      .category {
+        color: #555;
+      }
     }
   }
 
   .actions {
     display: flex;
+    justify-content: flex-end; /* Alinha os botões à direita */
+    align-items: center;
     gap: 10px;
 
     button {
-      background-color: #b2dfdb00;
-      padding: 5px 10px;
-      // font-size: 14px;
+      margin-right: 30px;
+      background-color: transparent;
       border: none;
-      border-radius: 5px;
-      color:#563f80;
       cursor: pointer;
-      transition: background-color 0.2s ease;
       font-size: 25px;
+      color: #563f80;
+      transition: color 0.2s, transform 0.2s;
 
       &.editButton:hover {
         color: #06bb3d;
@@ -106,15 +118,8 @@
 
       &.deleteButton:hover {
         color: #ff1616;
-        font-size: 32px;
+        transform: scale(1.2);
       }
-      &:hover{
-        font-size: 28px;
-      }
-    }
-    .deleteButton{
-      font-size: 28px;
-      margin-right: 30px;
     }
   }
 }

@@ -27,60 +27,67 @@ const ListDetail: React.FC<ListDetailProps> = ({ list, onEdit, onDelete }) => {
 
   return (
     <li
-      className={`${styles.listItem} ${
-        styles[`priority-${list.priority.toLowerCase()}`]
-      } ${list.completed ? styles.completed : ""}`}
-      onClick={handleNavigateToDetails}
-    >
-      <div className={styles.listDetails}>
-        <h3>{list.title}</h3>
-        <p>
-          <strong>Prioridade:</strong>{" "}
-          <span className={styles.priority}>{list.priority}</span>
-        </p>
-        <p>
-          <strong>Categoria:</strong>{" "}
-          <span className={styles.category}>{list.category === "" ? "Não definido" : list.category}</span>
-        </p>
-        <p>
-          <strong>Status:</strong> {list.completed ? "Concluída" : "Pendente" }
-        </p>
-        <p>
-          <strong>Qtd. de itens:</strong> {list.item_count}
-        </p>
+  className={`${styles.listItem} ${
+    styles[`priority-${list.priority.toLowerCase()}`]
+  } ${list.completed ? styles.completed : ""}`}
+  onClick={handleNavigateToDetails}
+>
+  <div className={styles.listDetails}>
+    {/* Cabeçalho com título, prioridade e categoria */}
+    <div className={styles.header}>
+      <h3>{list.title}</h3>
+      <div className={styles.priority}>
+        <strong>Prioridade: </strong>
+        <span >{list.priority}</span>
       </div>
-      <div className={styles.actions}>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsEditModalOpen(true);
-          }}
-          className={styles.editButton}
-        >
-          <FaRegEdit />
-        </button>
-        <button
-          onClick={(e) => {
-          e.stopPropagation();
-          onDelete(list.id);
-          }}
-          className={styles.deleteButton}
-        >
-          <MdDeleteForever />
-        </button>
-      </div>
+      
+    </div>
+    <div className={styles.detailsGrid}>
+    
+      <p>
+        <strong>Qtd. de itens:</strong> {list.item_count}
+      </p>
+      <span className={styles.category}>
+        <strong>Categoria:</strong> {list.category === "" ? "Não definido" : list.category}
+      </span>
+      <p>
+        <strong>Status:</strong> {list.completed ? "Concluída" : "Pendente"}
+      </p>
+    </div>
+  </div>
 
-      {isEditModalOpen && (
-        <ModalAddList
-          isOpen={isEditModalOpen}
-          onClose={() => setIsEditModalOpen(false)}
-          onAddList={handleEdit}
-          initialTitle={list.title}
-          initialPriority={list.priority}
-          initialCategory={list.category}
-        />
-      )}
-    </li>
+  <div className={styles.actions}>
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        setIsEditModalOpen(true);
+      }}
+      className={styles.editButton}
+    >
+      <FaRegEdit />
+    </button>
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        onDelete(list.id);
+      }}
+      className={styles.deleteButton}
+    >
+      <MdDeleteForever />
+    </button>
+  </div>
+
+  {isEditModalOpen && (
+    <ModalAddList
+      isOpen={isEditModalOpen}
+      onClose={() => setIsEditModalOpen(false)}
+      onAddList={handleEdit}
+      initialTitle={list.title}
+      initialPriority={list.priority}
+      initialCategory={list.category}
+    />
+  )}
+</li>
   );
 };
 
