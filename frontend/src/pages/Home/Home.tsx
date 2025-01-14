@@ -21,15 +21,15 @@ const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Controle do modal
   const [modalTarget, setModalTarget] = useState<ListType | null>(null); // Lista selecionada para exclusão
 
-  const handleFilterAndSort = (filterBy: string, sortBy: string, sortOrder: "asc" | "desc") => {
+  const handleFilterAndSort = (sortBy: string, sortOrder: "asc" | "desc") => {
     if (searchResults.lists.length > 0 || searchResults.items.length > 0) {
-      const sortedLists = filterAndSortLists(searchResults.lists, filterBy, sortBy, sortOrder);
+      const sortedLists = filterAndSortLists(searchResults.lists, sortBy, sortOrder);
       setSearchResults({
         ...searchResults,
         lists: sortedLists,
       });
     } else {
-      const sortedLists = filterAndSortLists(lists, filterBy, sortBy, sortOrder);
+      const sortedLists = filterAndSortLists(lists, sortBy, sortOrder);
       setGroupedLists({ Todos: sortedLists }); // Renderiza todas as listas sem agrupamento
     }
   };
@@ -80,10 +80,8 @@ const Home: React.FC = () => {
     <div className={styles.container}>
       <Layout onSearchResults={handleSearch}>
         <h1>Minhas Listas</h1>
-        <FiltersBar
-          onFilterAndSort={handleFilterAndSort}
-          onClassifyBy={handleClassifyBy} // Novo método para classificar por grupos
-        />
+        <FiltersBar onFilterAndSort={(sortBy, sortOrder) => handleFilterAndSort(sortBy, sortOrder)} onClassifyBy={handleClassifyBy} />
+
         {searchResults.lists.length > 0 || searchResults.items.length > 0 ? (
           <SearchResults results={searchResults} />
         ) : Object.keys(groupedLists).length > 0 ? (

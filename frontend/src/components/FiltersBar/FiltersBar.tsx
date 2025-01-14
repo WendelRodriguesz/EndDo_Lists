@@ -3,12 +3,11 @@ import { FaArrowUpShortWide, FaArrowDownWideShort } from "react-icons/fa6";
 import styles from "./FiltersBar.module.scss";
 
 interface FiltersBarProps {
-  onFilterAndSort: (filterBy: string, sortBy: string, sortOrder: "asc" | "desc") => void;
+  onFilterAndSort: (sortBy: string, sortOrder: "asc" | "desc") => void;
   onClassifyBy: (classifyBy: string) => void; // Função para agrupar por
 }
 
 const FiltersBar: React.FC<FiltersBarProps> = ({ onFilterAndSort, onClassifyBy }) => {
-  const [filterBy, setFilterBy] = useState("");
   const [sortBy, setSortBy] = useState("created_at");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [classifyBy, setClassifyBy] = useState("");
@@ -16,13 +15,7 @@ const FiltersBar: React.FC<FiltersBarProps> = ({ onFilterAndSort, onClassifyBy }
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setSortBy(value);
-    onFilterAndSort(filterBy, value, sortOrder);
-  };
-
-  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setFilterBy(value);
-    onFilterAndSort(value, sortBy, sortOrder);
+    onFilterAndSort(value, sortOrder);
   };
 
   const handleClassifyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -34,7 +27,7 @@ const FiltersBar: React.FC<FiltersBarProps> = ({ onFilterAndSort, onClassifyBy }
   const toggleSortOrder = () => {
     const newOrder = sortOrder === "asc" ? "desc" : "asc";
     setSortOrder(newOrder);
-    onFilterAndSort(filterBy, sortBy, newOrder);
+    onFilterAndSort(sortBy, newOrder);
   };
 
   return (
@@ -43,14 +36,6 @@ const FiltersBar: React.FC<FiltersBarProps> = ({ onFilterAndSort, onClassifyBy }
         <label>Classificar por:</label>
         <select value={classifyBy} onChange={handleClassifyChange}>
           <option value="">Nenhum</option>
-          <option value="category">Categoria</option>
-          <option value="priority">Prioridade</option>
-        </select>
-      </div>
-      <div className={styles.filterSection}>
-        <label>Filtrar por:</label>
-        <select value={filterBy} onChange={handleFilterChange}>
-          <option value="">Todos</option>
           <option value="category">Categoria</option>
           <option value="priority">Prioridade</option>
         </select>
