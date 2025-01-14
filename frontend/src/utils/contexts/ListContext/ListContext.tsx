@@ -8,6 +8,7 @@ interface ListContextProps {
   addList: (title: string, priority: string, category: string) => void;
   editList: (id: number, data: Partial<List>) => void;
   removeList: (id: number) => void;
+  getItemsByListId: (listId: number) => Promise<any[]>;
 }
 
 export const ListContext = createContext<ListContextProps | undefined>(undefined);
@@ -57,12 +58,23 @@ export const ListProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
+  const getItemsByListId = async (listId: number) => {
+    try {
+      const items = await fetch(`/api/lists/${listId}/items`); // Ajuste para sua API
+      return items.json();
+    } catch (error) {
+      console.error("Erro ao buscar itens da lista:", error);
+      return [];
+    }
+  };
+  
+
   useEffect(() => {
     fetchLists();
   }, []);
 
   return (
-    <ListContext.Provider value={{ lists, fetchLists, addList, editList, removeList }}>
+    <ListContext.Provider value={{ lists, fetchLists, addList, editList, removeList, getItemsByListId}}>
       {children}
     </ListContext.Provider>
   );
