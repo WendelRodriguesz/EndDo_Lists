@@ -2,6 +2,12 @@
 
 Bem-vindo ao **EndDo**! Este é um aplicativo de lista de tarefas desenvolvido para ajudá-lo a organizar e concluir suas atividades de forma eficiente. O nome "EndDo" é uma combinação de "end" (fim) e "do" (fazer), refletindo o objetivo de ajudá-lo a finalizar suas tarefas. Além disso, é uma homenagem ao apelido "Endo", dado por minha avó, inspirado no meu nome, Wendel.
 
+## Origem do Projeto
+
+O **EndDo** foi inicialmente desenvolvido como parte de um case de desenvolvimento. Após a conclusão do case, com o icentivo de mais implementações ao meu gosto, o projeto foi aprimorado com novas funcionalidades e melhorias, refletindo meu compromisso contínuo com a excelência e inovação no desenvolvimento de software.
+
+---
+
 ## Índice 📋
 
 - [Recursos](#recursos-)
@@ -10,6 +16,8 @@ Bem-vindo ao **EndDo**! Este é um aplicativo de lista de tarefas desenvolvido p
 - [Uso](#uso-)
 - [Licença](#licença-)
 - [Contato](#contato-)
+
+---
 
 ## Recursos ✨
 
@@ -39,6 +47,8 @@ Bem-vindo ao **EndDo**! Este é um aplicativo de lista de tarefas desenvolvido p
 - **Interação direta** com itens para marcar como concluídos.
 - **Filtragem e busca** de itens individualmente.
 
+---
+
 ## Tecnologias Utilizadas 🛠️
 
 - **Frontend:**
@@ -54,7 +64,11 @@ Bem-vindo ao **EndDo**! Este é um aplicativo de lista de tarefas desenvolvido p
   - Docker
   - Git
 
+---
+
 ## Instalação 🖥️
+
+Siga os passos abaixo para configurar e executar o projeto em sua máquina local:
 
 1. **Clone o repositório:**
 
@@ -99,6 +113,8 @@ Bem-vindo ao **EndDo**! Este é um aplicativo de lista de tarefas desenvolvido p
      npm run dev
      ```
 
+---
+
 ## Uso 🚀
 
 1. Acesse o aplicativo no seu navegador em `http://localhost:3000`.
@@ -109,14 +125,18 @@ Bem-vindo ao **EndDo**! Este é um aplicativo de lista de tarefas desenvolvido p
 6. Marque itens como concluídos diretamente na página da lista.
 7. Observe que listas são marcadas como concluídas automaticamente quando todos os itens são finalizados.
 
+---
+
 ## Licença 📄
 
 Este projeto está licenciado sob a [Licença MIT](LICENSE).
+
+---
 
 ## Contato 📬
 
 Para mais informações ou suporte, entre em contato:
 
 - **Autor:** Wendel Rodrigues
-- **Email:** wendeldev2010@gmail.com
+- **Email:** [wendeldev2010@gmail.com](mailto:wendeldev2010@gmail.com)
 - **LinkedIn:** [linkedin.com/in/-endel](https://www.linkedin.com/in/-endel)
