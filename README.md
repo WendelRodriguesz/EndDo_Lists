@@ -1,45 +1,45 @@
-# EndDo
+# EndDo 📝✅
 
 Bem-vindo ao **EndDo**! Este é um aplicativo de lista de tarefas desenvolvido para ajudá-lo a organizar e concluir suas atividades de forma eficiente. O nome "EndDo" é uma combinação de "end" (fim) e "do" (fazer), refletindo o objetivo de ajudá-lo a finalizar suas tarefas. Além disso, é uma homenagem ao apelido "Endo", dado por minha avó, inspirado no meu nome, Wendel.
 
-## Índice
+## Índice 📋
 
-- [Recursos](#recursos)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Instalação](#instalação)
-- [Uso](#uso)
-- [Licença](#licença)
-- [Contato](#contato)
+- [Recursos](#recursos-)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas-)
+- [Instalação](#instalação-)
+- [Uso](#uso-)
+- [Licença](#licença-)
+- [Contato](#contato-)
 
-## Recursos
+## Recursos ✨
 
-- Barra lateral responsiva que pode ser ocultada.
-- Organização de conteúdo de forma intuitiva.
-- Criação, edição, exclusão e listagem de listas com:
+- **Barra lateral responsiva** que pode ser ocultada.
+- **Organização intuitiva** do conteúdo.
+- **Gerenciamento de listas** com:
   - Categorias
   - Prioridades
   - Status
   - Quantidade de itens
-- Busca de listas e itens por meio de barra de pesquisa.
-- Aplicação de filtros para classificação por:
+- **Busca** de listas e itens por meio de barra de pesquisa.
+- **Filtros** para classificação por:
   - Todos
   - Categoria
   - Status
   - Prioridade
-- Ordenação por:
+- **Ordenação** por:
   - Data de criação
   - Prioridade
   - Título (ordem alfabética)
   - Data de término
-- Conclusão automática de listas quando todos os itens são concluídos.
-- Gerenciamento de itens com:
+- **Conclusão automática** de listas quando todos os itens são concluídos.
+- **Gerenciamento de itens** com:
   - Título
   - Data de término
   - Status de conclusão
-- Interação direta com itens para marcar como concluídos.
-- Filtragem e busca de itens individualmente.
+- **Interação direta** com itens para marcar como concluídos.
+- **Filtragem e busca** de itens individualmente.
 
-## Tecnologias Utilizadas
+## Tecnologias Utilizadas 🛠️
 
 - **Frontend:**
   - React
@@ -54,7 +54,7 @@ Bem-vindo ao **EndDo**! Este é um aplicativo de lista de tarefas desenvolvido p
   - Docker
   - Git
 
-## Instalação
+## Instalação 🖥️
 
 1. **Clone o repositório:**
 
@@ -99,7 +99,7 @@ Bem-vindo ao **EndDo**! Este é um aplicativo de lista de tarefas desenvolvido p
      npm run dev
      ```
 
-## Uso
+## Uso 🚀
 
 1. Acesse o aplicativo no seu navegador em `http://localhost:3000`.
 2. Adicione novas listas com prioridades e categorias personalizadas.
@@ -109,14 +109,14 @@ Bem-vindo ao **EndDo**! Este é um aplicativo de lista de tarefas desenvolvido p
 6. Marque itens como concluídos diretamente na página da lista.
 7. Observe que listas são marcadas como concluídas automaticamente quando todos os itens são finalizados.
 
-## Licença
+## Licença 📄
 
 Este projeto está licenciado sob a [Licença MIT](LICENSE).
 
-## Contato
+## Contato 📬
 
 Para mais informações ou suporte, entre em contato:
 
-- **Nome:** Wendel Rodrigues
+- **Autor:** Wendel Rodrigues
 - **Email:** wendeldev2010@gmail.com
 - **LinkedIn:** [linkedin.com/in/-endel](https://www.linkedin.com/in/-endel)
