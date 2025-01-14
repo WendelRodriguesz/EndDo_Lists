@@ -24,8 +24,11 @@ class ListsController < ApplicationController
 
   def destroy
     list = List.find(params[:id])
-    list.destroy
+    list.items.destroy_all # Remove os itens associados
+    list.destroy # Remove a lista
     render json: { message: "Lista deletada com sucesso!" }
+  rescue StandardError => e
+    render json: { error: e.message }, status: :internal_server_error
   end
 
   private

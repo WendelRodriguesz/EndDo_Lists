@@ -16,14 +16,12 @@
   }
 
   &.completed {
-    background-color: #eaeaea;
-    color: #aaa;
+    background-color: #eaeaea !important; /* Sobrescreve a cor de prioridade */
     text-decoration: line-through;
-    
-    .priority,
-    .category {
-      color: #bbb;
+    h3,span,strong,p {
+      color: #bbb !important; /* Sobrescreve as cores da prioridade */
     }
+
   }
   h3 {
     font-size: 20px;

@@ -18,7 +18,7 @@ const ListDetail: React.FC<ListDetailProps> = ({ list, onEdit, onDelete }) => {
 
   const handleEdit = async (title: string, priority: string, category: string) => {
     await onEdit(list.id, { title, priority, category });
-    setIsEditModalOpen(false); // Fecha o modal após a edição
+    setIsEditModalOpen(false);
   };
 
   const handleNavigateToDetails = () => {
@@ -33,7 +33,6 @@ const ListDetail: React.FC<ListDetailProps> = ({ list, onEdit, onDelete }) => {
   onClick={handleNavigateToDetails}
 >
   <div className={styles.listDetails}>
-    {/* Cabeçalho com título, prioridade e categoria */}
     <div className={styles.header}>
       <h3>{list.title}</h3>
       <div className={styles.priority}>
