@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./List.module.scss";
 import { List as ListType } from "../../types";
-import ListItem from "../ListItem/ListItem";
+import ListDetail from "../ListDetail/ListDetail";
 
 interface ListProps {
   lists: ListType[];
@@ -13,7 +13,7 @@ const List: React.FC<ListProps> = ({ lists, onEdit, onDelete }) => {
   return (
     <ul className={styles.list}>
       {lists.map((list) => (
-        <ListItem
+        <ListDetail
           key={list.id}
           list={list}
           onEdit={onEdit}

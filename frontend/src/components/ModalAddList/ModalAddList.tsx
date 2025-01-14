@@ -32,8 +32,8 @@ const ModalAddList: React.FC<ModalAddListProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (title.trim() && category.trim()) {
-      onAddList(title, priority, category);
+    if (title.trim()) {
+      onAddList(title, priority, category.trim());
       setTitle("");
       setPriority("Baixa");
       setCategory("");
@@ -50,7 +50,7 @@ const ModalAddList: React.FC<ModalAddListProps> = ({
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor="title" className={styles.label}>
-              Nome da Lista:
+              Nome da Lista*:
             </label>
             <input
               id="title"
