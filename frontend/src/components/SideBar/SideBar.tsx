@@ -26,7 +26,7 @@ type MenuItem = {
 const Sidebar: React.FC<SidebarProps> = ({ isVisible, toggleSidebar }) => {
   const menuItems: MenuItem[] = [
     // { name: "Buscar", icon: IoSearchOutline, path: "/search" },
-    { name: "Home", icon: CiBoxList, path: "/lists" },
+    { name: "Home", icon: CiBoxList, path: "/home" },
   ];
   const { lists, addList } = useListContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isVisible, toggleSidebar }) => {
       }`}
     >
       <div className={styles.imagesection}>
-        <img src={"images/logoEnddo.png"} alt="EndDo Logo" />
+        <img src={"/images/logoEnddo.png"} alt="EndDo Logo" />
         <PiSidebarSimple
           onClick={toggleSidebar}
           className={styles.toggle_button}

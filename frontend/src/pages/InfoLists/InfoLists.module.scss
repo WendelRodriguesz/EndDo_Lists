@@ -1,24 +1,48 @@
 .infoLists {
-  // padding: 20px;
+  h1{
+    color: #421c7c;
+  }
 
   .addButton {
+    display: flex;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #007bff;
+    top: 70px;
+    right: 40px;
+    background-color: #ec7322;
     color: white;
     border: none;
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    font-size: 18px;
+    font-size: 58px;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    svg{
+      font-size: 50px;
+      
+    }
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #ffffff;
+      svg{
+        color: #342175;
+        font-size: 90px;
+      }
     }
   }
-
+  .deleteListButton {
+    display:flex;
+    button{
+      background-color: #ff000000;
+    color: #ff1616;
+    font-size: 28px;
+    &:hover {
+      color: #ff1616;
+      font-size: 30px;
+    }}
+    
+  }
   .itemsList {
     list-style: none;
     padding: 0;
@@ -32,10 +56,13 @@
       border: 1px solid #ddd;
       border-radius: 4px;
       background-color: #f9f9f9;
+      &:hover {
+        background-color: #f0f0f0;
+      }
 
       &.completed {
         text-decoration: line-through;
-        color: #888;
+        color: #888888;
         background-color: #e0e0e0;
       }
 
@@ -45,16 +72,34 @@
         gap: 10px;
 
         .checkButton {
-          width: 20px;
-          height: 20px;
-          border: 1px solid #ccc;
-          border-radius: 50%;
-          background-color: white;
+          // width: 10px;
+          // height: 10px;
+          // border: 1px solid #ccc;
+          // border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0);
           cursor: pointer;
 
           &:hover {
-            background-color: #f0f0f0;
+            background-color: #f0f0f000;
           }
+          
+          .check{
+            color: rgb(20, 180, 42);
+            &:hover{
+              color: rgb(151, 151, 151);
+              }
+          }
+          .nocheck{
+            color: rgb(83, 83, 83);
+            &:hover{
+              color: rgb(17, 184, 44);
+              }
+          }
+          font-size: 30px;
+          &:hover{
+            font-size: 33px;
+            }
+          
         }
 
         .dueDate {
@@ -68,13 +113,32 @@
         gap: 10px;
 
         button {
-          background-color: transparent;
+          background-color: #b2dfdb00;
+          padding: 5px 10px;
+          // font-size: 14px;
           border: none;
-          color: #007bff;
+          border-radius: 5px;
+          color:#563f80;
           cursor: pointer;
-
-          &:hover {
-            color: #0056b3;
+          transition: background-color 0.2s ease;
+    
+          &.editButton {
+            // color: #378a3b;
+            font-size: 20px;
+    
+            &:hover {
+              color: #06bb3d;
+              font-size: 22px;
+            }
+          }
+    
+          &.deleteButton {
+            // color: #b31717;
+            font-size: 25px;
+            &:hover {
+              color: #ff1616;
+              font-size: 27px;
+            }
           }
         }
       }

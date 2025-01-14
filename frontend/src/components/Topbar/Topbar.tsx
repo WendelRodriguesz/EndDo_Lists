@@ -22,7 +22,7 @@ const Topbar: React.FC<TopbarProps> = ({ isSidebarVisible, onSearch }) => {
         isSidebarVisible ? styles.sidebarVisible : styles.sidebarHidden
       }`}
     >
-      <img src={"images/logoBEnddo.png"} alt="EndDo Logo" />
+      <img src={"/images/logoBEnddo.png"} alt="EndDo Logo" />
       <div className={styles.searchBar}>
         <input
           type="text"

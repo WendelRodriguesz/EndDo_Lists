@@ -34,7 +34,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
                 <span className={listStyles.priority}>{list.priority}</span>
               </p>
               <p>
-                <strong>Categoria:</strong> {list.category}
+                <strong>Categoria:</strong> {list.category === "" ? "Não definido" : list.category}
               </p>
               {results.items.filter((item) => item.list_id === list.id).length >
                 0 && (

@@ -1,37 +1,5 @@
-.form {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-
-    &:hover {
-    background-color: #0056b3;
+.container{
+    h1{
+        color: #421c7c;
     }
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    padding: 10px;
-    margin: 5px 0;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
 }
