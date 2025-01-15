@@ -2,9 +2,8 @@ import axios from "axios";
 import { List, Item } from "../types";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000", // Certifique-se de que esta URL é a mesma do backend
+  baseURL: process.env.REACT_APP_API_URL || "http://localhost:3000", // Valor padrão como fallback
 });
-
 // Obter todas as listas
 export const getLists = async (): Promise<List[]> => {
   const response = await api.get<List[]>("/lists");

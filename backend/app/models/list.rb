@@ -1,7 +1,7 @@
 class List < ApplicationRecord
   has_many :items, dependent: :destroy
 
-  validates :title, presence: true, length: { maximum: 20 }
+  validates :title, presence: true, length: { maximum: 50 }
   validates :completed, inclusion: { in: [true, false] }
   validates :priority, length: { maximum: 20 }, allow_blank: true
   validates :category, length: { maximum: 50 }, allow_blank: true

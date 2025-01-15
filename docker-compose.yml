@@ -1,0 +1,51 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: enddo_frontend
+    ports:
+      - "5173:5173" # Porta externa para o servidor de desenvolvimento do Vite
+    environment:
+      - REACT_APP_API_URL=http://backend:3000 # URL do backend
+    depends_on:
+      - backend
+    networks:
+      - enddo_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: enddo_backend
+    ports:
+      - "3000:3000" # Porta do backend
+    environment:
+      RAILS_ENV: production
+      DATABASE_HOST: db
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: todo
+      DATABASE_PORT: 5436
+      SECRET_KEY_BASE: "5c6a3f4d5e6a7f8g9h0i1j2k3l4m5n6o7p8q9r0s1t2u3v4w5x6y7z8a9b0c1d2"
+    depends_on:
+      - db
+    command: ./wait-for-db.sh db bundle exec rails db:prepare && bundle exec rails server -b 0.0.0.0
+    networks:
+      - enddo_network
+
+  db:
+    image: postgres:14-alpine
+    container_name: enddo_db
+    ports:
+      - "5436:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todo
+    networks:
+      - enddo_network
+
+networks:
+  enddo_network:
+    driver: bridge

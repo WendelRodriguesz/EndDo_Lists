@@ -2,22 +2,22 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: 127.0.0.1
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
 
 development:
   <<: *default
-  database: enddo_dev
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
+  database: <%= ENV.fetch("DATABASE_NAME", "enddo_dev") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "postgres") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "postgres") %>
 
 test:
   <<: *default
-  database: enddo_test
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
+  database: <%= ENV.fetch("DATABASE_NAME", "enddo_test") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "postgres") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "postgres") %>
 
 production:
   <<: *default
-  database: enddo_production
-  username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
+  database: <%= ENV.fetch("DATABASE_NAME", "enddo_production") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "postgres") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "postgres") %>
