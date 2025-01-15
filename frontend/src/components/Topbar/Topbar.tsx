@@ -15,6 +15,11 @@ const Topbar: React.FC<TopbarProps> = ({ isSidebarVisible, onSearch }) => {
         onSearch(searchQuery);
       }
     };
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        handleSearchClick();
+      }
+    };
 
   return (
     <div
@@ -28,6 +33,7 @@ const Topbar: React.FC<TopbarProps> = ({ isSidebarVisible, onSearch }) => {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Buscar listas ou itens..."
         />
         <a className={styles.IconSearch}>
