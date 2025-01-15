@@ -1,52 +1,66 @@
 import React, { useState } from "react";
 import { FaArrowUpShortWide, FaArrowDownWideShort } from "react-icons/fa6";
+import { fieldLabels } from "../../utils/labels"; // Importe o mapeamento de rótulos
 import styles from "./FiltersBar.module.scss";
 
 interface FiltersBarProps {
-  onFilterAndSort: (sortBy: string, sortOrder: "asc" | "desc") => void;
-  onClassifyBy: (classifyBy: string) => void; // Função para agrupar por
+  onGroupAndSort: (
+    groupBy: string | null,
+    sortBy: string,
+    sortOrder: "asc" | "desc"
+  ) => void;
+  groupOptions: string[]; // Propriedades para agrupar
+  sortOptions: string[];  // Propriedades para ordenar
 }
 
-const FiltersBar: React.FC<FiltersBarProps> = ({ onFilterAndSort, onClassifyBy }) => {
-  const [sortBy, setSortBy] = useState("created_at");
+const FiltersBar: React.FC<FiltersBarProps> = ({
+  onGroupAndSort,
+  groupOptions,
+  sortOptions,
+}) => {
+  const [groupBy, setGroupBy] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState(sortOptions[0]);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const [classifyBy, setClassifyBy] = useState("");
+
+  const handleGroupChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setGroupBy(value || null);
+    onGroupAndSort(value || null, sortBy, sortOrder);
+  };
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setSortBy(value);
-    onFilterAndSort(value, sortOrder);
-  };
-
-  const handleClassifyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setClassifyBy(value);
-    onClassifyBy(value); // Chama a função de agrupamento
+    onGroupAndSort(groupBy, value, sortOrder);
   };
 
   const toggleSortOrder = () => {
     const newOrder = sortOrder === "asc" ? "desc" : "asc";
     setSortOrder(newOrder);
-    onFilterAndSort(sortBy, newOrder);
+    onGroupAndSort(groupBy, sortBy, newOrder);
   };
 
   return (
     <div className={styles.filtersBar}>
       <div className={styles.filterSection}>
-        <label>Classificar por:</label>
-        <select value={classifyBy} onChange={handleClassifyChange}>
+        <label>Agrupar por:</label>
+        <select value={groupBy || ""} onChange={handleGroupChange}>
           <option value="">Nenhum</option>
-          <option value="category">Categoria</option>
-          <option value="priority">Prioridade</option>
+          {groupOptions.map((option) => (
+            <option key={option} value={option}>
+              {fieldLabels[option] || option}
+            </option>
+          ))}
         </select>
       </div>
       <div className={styles.sortSection}>
         <label>Ordenar por:</label>
         <select value={sortBy} onChange={handleSortChange}>
-          <option value="created_at">Data de Criação</option>
-          <option value="due_date">Data de Término</option>
-          <option value="priority">Prioridade</option>
-          <option value="title">Título</option>
+          {sortOptions.map((option) => (
+            <option key={option} value={option}>
+              {fieldLabels[option] || option}
+            </option>
+          ))}
         </select>
         <button className={styles.sortOrderButton} onClick={toggleSortOrder}>
           {sortOrder === "asc" ? (

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Home.module.scss";
 import FiltersBar from "../../components/FiltersBar/FiltersBar";
 import Layout from "../../components/LayoutPages/Layout";
 import List from "../../components/List/List";
 import SearchResults from "../../components/SearchResults/SearchResults";
-import { List as ListType, Item } from "../../types";
+import { List as ListType, Item } from "../../types"; // Import the List type correctly
 import { useListContext } from "../../utils/contexts/ListContext/ListContext";
-import { filterAndSortLists } from "../../utils/filterAndSortLists";
+import { groupAndSort } from "../../utils/groupAndSort";
 import DeleteModal from "../../components/DeleteModal/DeleteModal"; // Modal de exclusão
 import useSearch from "../../hooks/useSearch";
 
@@ -21,28 +21,18 @@ const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Controle do modal
   const [modalTarget, setModalTarget] = useState<ListType | null>(null); // Lista selecionada para exclusão
 
-  const handleFilterAndSort = (sortBy: string, sortOrder: "asc" | "desc") => {
-    if (searchResults.lists.length > 0 || searchResults.items.length > 0) {
-      const sortedLists = filterAndSortLists(searchResults.lists, sortBy, sortOrder);
-      setSearchResults({
-        ...searchResults,
-        lists: sortedLists,
-      });
-    } else {
-      const sortedLists = filterAndSortLists(lists, sortBy, sortOrder);
-      setGroupedLists({ Todos: sortedLists }); // Renderiza todas as listas sem agrupamento
-    }
-  };
+  useEffect(() => {
+    const initialGroupedLists = groupAndSort(lists, undefined, "created_at", "asc");
+    setGroupedLists(initialGroupedLists);
+  }, [lists]);
 
-  const handleClassifyBy = (classifyBy: string) => {
-    // Agrupar listas pela classificação escolhida
-    const grouped = lists.reduce((acc: Record<string, ListType[]>, list) => {
-      const groupKey = list[classifyBy as keyof ListType]?.toString() || "Outros";
-      if (!acc[groupKey]) acc[groupKey] = [];
-      acc[groupKey].push(list);
-      return acc;
-    }, {});
-    setGroupedLists(grouped);
+  const handleGroupAndSort = (
+    groupBy: string | null,
+    sortBy: string,
+    sortOrder: "asc" | "desc"
+  ) => {
+    const groupedData = groupAndSort(lists, groupBy as keyof ListType | undefined, sortBy as keyof ListType | undefined, sortOrder);
+    setGroupedLists(groupedData);
   };
 
   const handleSearch = async (query: string) => {
@@ -80,7 +70,11 @@ const Home: React.FC = () => {
     <div className={styles.container}>
       <Layout onSearchResults={handleSearch}>
         <h1>Minhas Listas</h1>
-        <FiltersBar onFilterAndSort={(sortBy, sortOrder) => handleFilterAndSort(sortBy, sortOrder)} onClassifyBy={handleClassifyBy} />
+        <FiltersBar
+          onGroupAndSort={handleGroupAndSort}
+          groupOptions={["priority", "category", "completed"]}
+          sortOptions={["priority", "item_count", "title","created_at", "updated_at"]}
+        />
 
         {searchResults.lists.length > 0 || searchResults.items.length > 0 ? (
           <SearchResults results={searchResults} />
