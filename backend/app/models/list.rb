@@ -1,7 +1,7 @@
 class List < ApplicationRecord
   has_many :items, dependent: :destroy
 
-  validates :title, presence: true, length: { minimum: 3 }
+  validates :title, presence: true, length: { maximum: 20 }
   validates :completed, inclusion: { in: [true, false] }
   validates :priority, length: { maximum: 20 }, allow_blank: true
   validates :category, length: { maximum: 50 }, allow_blank: true
@@ -24,10 +24,12 @@ class List < ApplicationRecord
 
   # Atualiza o status `completed` da lista com base nos itens
   def update_list_status
-    if items.exists?(completed: false)
-      update_column(:completed, false)
+    if items.empty?
+      update_column(:completed, false) 
+    elsif items.exists?(completed: false)
+      update_column(:completed, false) 
     else
-      update_column(:completed, true)
+      update_column(:completed, true) 
     end
   end
 end

@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   belongs_to :list
 
-  validates :title, presence: true, length: { minimum: 3 }
+  validates :title, presence: true, length: { maximum: 20 }
   validates :due_date, presence: false
   validates :completed, inclusion: { in: [true, false] }
 
